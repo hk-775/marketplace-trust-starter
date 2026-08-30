@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Seeded Marketplace Trust Starter operator dashboard for assessments, review cases, policies, signal insights, and audit."
+    >
+    <title>Trust Operations — Marketplace Trust Starter</title>
+    <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="assets/dashboard.js" defer></script>
+  </head>
+  <body class="dashboard-body">
+    <div class="dashboard-layout">
+      <aside class="dashboard-sidebar" id="dashboardSidebar">
+        <a class="brand" href="index.html">
+          <img src="assets/mark.svg" alt="">
+          <span>Marketplace <span>Trust</span></span>
+        </a>
+
+        <p class="sidebar-label">Operations</p>
+        <nav class="sidebar-nav" aria-label="Dashboard sections">
+          <button class="active" type="button" data-view="overview">
+            <span class="nav-symbol">OV</span> Overview
+          </button>
+          <button type="button" data-view="assessments">
+            <span class="nav-symbol">AS</span> Live assessments
+          </button>
+          <button type="button" data-view="cases">
+            <span class="nav-symbol">RQ</span> Review queue
+          </button>
+          <button type="button" data-view="policies">
+            <span class="nav-symbol">PC</span> Policy controls
+          </button>
+          <button type="button" data-view="insights">
+            <span class="nav-symbol">SI</span> Signal insights
+          </button>
+          <button type="button" data-view="audit">
+            <span class="nav-symbol">AU</span> Audit trail
+          </button>
+        </nav>
+
+        <p class="sidebar-label">Walkthrough</p>
+        <nav class="sidebar-nav" aria-label="Demo and documentation">
+          <button type="button" data-view="demo">
+            <span class="nav-symbol">▶</span> Guided demo
+          </button>
+          <a class="button small ghost" href="architecture.html">Interactive architecture</a>
+          <a class="button small ghost" href="api/docs">API reference</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <span class="local-mode">Seeded local mode · no credentials</span>
+        </div>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="dashboard-topbar">
+          <div class="dashboard-title">
+            <button
+              class="mobile-sidebar-toggle"
+              id="sidebarToggle"
+              type="button"
+              aria-label="Toggle sidebar"
+              aria-controls="dashboardSidebar"
+              aria-expanded="false"
+            >☰</button>
+            <h1 id="topbarTitle">Overview</h1>
+            <span class="environment-pill">Local demo</span>
+          </div>
+          <div class="topbar-actions">
+            <button class="button small" type="button" data-view-jump="demo">Guided demo</button>
+            <button class="button small always-show" id="resetButton" type="button">Reset seed</button>
+          </div>
+        </header>
+
+        <div class="dashboard-content">
+          <section class="dashboard-view active" data-view-panel="overview">
+            <div class="view-header">
+              <div>
+                <h2>Trust operations overview</h2>
+                <p>Seeded state, policy-aware assessments, and human review at a glance.</p>
+              </div>
+              <button class="button primary" type="button" data-open-assessment>Run assessment</button>
+            </div>
+
+            <div class="kpi-grid" aria-label="Key performance indicators">
+              <article class="kpi-card">
+                <div class="kpi-label"><span>Total assessments</span><span class="kpi-spark">AS</span></div>
+                <strong id="kpiAssessments">—</strong>
+                <small>durable local records</small>
+              </article>
+              <article class="kpi-card">
+                <div class="kpi-label"><span>Review queue</span><span class="kpi-spark">RQ</span></div>
+                <strong id="kpiQueue">—</strong>
+                <small>open or in review</small>
+              </article>
+              <article class="kpi-card">
+                <div class="kpi-label"><span>High / critical</span><span class="kpi-spark">%</span></div>
+                <strong id="kpiHighRate">—</strong>
+                <small>share of assessments</small>
+              </article>
+              <article class="kpi-card">
+                <div class="kpi-label"><span>Median risk</span><span class="kpi-spark">50</span></div>
+                <strong id="kpiMedian">—</strong>
+                <small>priority score, not guilt</small>
+              </article>
+            </div>
+
+            <div class="dashboard-grid">
+              <article class="panel">
+                <div class="panel-header">
+                  <h3>Risk tier distribution</h3>
+                  <span id="policyVersionLabel">policy v—</span>
+                </div>
+                <div class="distribution" id="tierDistribution">
+                  <div class="loading-state">Loading distribution…</div>
+                </div>
+              </article>
+              <article class="panel">
+                <div class="panel-header">
+                  <h3>Review queue</h3>
+                  <button class="button small" type="button" data-view-jump="cases">Open queue</button>
+                </div>
+                <div class="case-mini-list" id="queuePreview">
+                  <div class="loading-state">Loading cases…</div>
+                </div>
+              </article>
+            </div>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h3>Recent assessments</h3>
+                <button class="button small" type="button" data-view-jump="assessments">View all</button>
+              </div>
+              <div class="data-table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Assessment</th>
+                      <th>Subject</th>
+                      <th>Type</th>
+                      <th>Signals</th>
+                      <th>Tier</th>
+                      <th>Score</th>
+                      <th>Review</th>
+                    </tr>
+                  </thead>
+                  <tbody id="overviewAssessmentRows"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+
+          <section class="dashboard-view" data-view-panel="assessments">
+            <div class="view-header">
+              <div>
+                <h2>Live assessments</h2>
+                <p>Structured explanations from the deterministic signal engine.</p>
+              </div>
+              <button class="button primary" type="button" data-open-assessment>New assessment</button>
+            </div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Assessment</th>
+                    <th>Subject</th>
+                    <th>Type</th>
+                    <th>Top evidence</th>
+                    <th>Tier</th>
+                    <th>Score</th>
+                    <th>Case</th>
+                  </tr>
+                </thead>
+                <tbody id="assessmentRows"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="dashboard-view" data-view-panel="cases">
+            <div class="view-header">
+              <div>
+                <h2>Human review queue</h2>
+                <p>Scores create work. Reviewers—not the engine—record the outcome.</p>
+              </div>
+            </div>
+            <div class="filter-row" aria-label="Case status filters">
+              <button class="filter-button active" type="button" data-case-filter="active">Active</button>
+              <button class="filter-button" type="button" data-case-filter="open">Open</button>
+              <button class="filter-button" type="button" data-case-filter="in_review">In review</button>
+              <button class="filter-button" type="button" data-case-filter="resolved">Resolved</button>
+              <button class="filter-button" type="button" data-case-filter="all">All</button>
+            </div>
+            <div class="case-grid" id="caseGrid"></div>
+          </section>
+
+          <section class="dashboard-view" data-view-panel="policies">
+            <div class="view-header">
+              <div>
+                <h2>Policy and rule controls</h2>
+                <p>Changes apply to new assessments, require a reason, and enter the audit chain.</p>
+              </div>
+              <span class="audit-status" id="policyVersionBadge">Policy version —</span>
+            </div>
+            <div class="filter-row" id="policyFilters" aria-label="Policy category filters"></div>
+            <div class="policy-grid" id="policyGrid"></div>
+          </section>
+
+          <section class="dashboard-view" data-view-panel="insights">
+            <div class="view-header">
+              <div>
+                <h2>Model and signal insights</h2>
+                <p>This starter ships no opaque model; the panel exposes deterministic rule behavior.</p>
+              </div>
+            </div>
+            <div class="insight-banner">
+              <span class="insight-banner-icon">0 ML</span>
+              <div>
+                <h3>Deterministic by design</h3>
+                <p id="engineSummary">Loading engine posture…</p>
+              </div>
+            </div>
+            <div class="insight-layout">
+              <article class="panel">
+                <div class="panel-header"><h3>Most active risk signals</h3><span>seed + live data</span></div>
+                <div class="signal-list" id="signalList"></div>
+              </article>
+              <article class="panel">
+                <div class="panel-header"><h3>Responsible-use safeguards</h3></div>
+                <div class="safeguard-list" id="safeguardList"></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="dashboard-view" data-view-panel="audit">
+            <div class="view-header">
+              <div>
+                <h2>Audit trail</h2>
+                <p>Hash-linked events for assessments, review state, policy changes, and resets.</p>
+              </div>
+              <span class="audit-status" id="auditChainStatus">Checking chain…</span>
+            </div>
+            <article class="panel">
+              <div class="audit-timeline" id="auditTimeline"></div>
+            </article>
+          </section>
+
+          <section class="dashboard-view" data-view-panel="demo">
+            <div class="view-header">
+              <div>
+                <h2>Guided demo</h2>
+                <p>Run a scenario, inspect its evidence, then follow any created case into review.</p>
+              </div>
+            </div>
+            <div class="scenario-grid" id="scenarioGrid"></div>
+            <div id="scenarioResult" aria-live="polite"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+
+    <dialog id="assessmentDialog">
+      <form id="assessmentForm">
+        <div class="dialog-head">
+          <div>
+            <h2>Assessment lab</h2>
+            <p>Edit a validated request and see exactly which signals fire.</p>
+          </div>
+          <button class="dialog-close" type="button" data-close-dialog aria-label="Close">×</button>
+        </div>
+        <div class="dialog-body">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="assessmentType">Assessment type</label>
+              <select id="assessmentType" name="assessmentType">
+                <option value="profile">Profile risk</option>
+                <option value="content">Content risk</option>
+                <option value="coordinated-abuse">Coordinated abuse</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="assessmentPayload">JSON request</label>
+              <textarea class="code-editor" id="assessmentPayload" spellcheck="false"></textarea>
+              <span class="field-help">
+                Unknown and prohibited protected-attribute, biometric, face, or appearance fields are rejected.
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="dialog-actions">
+          <button class="button" type="button" data-close-dialog>Cancel</button>
+          <button class="button primary" type="submit">Run assessment</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="reviewDialog">
+      <form id="reviewForm">
+        <div class="dialog-head">
+          <div>
+            <h2 id="reviewDialogTitle">Review case</h2>
+            <p id="reviewDialogSubtitle">Human decision required.</p>
+          </div>
+          <button class="dialog-close" type="button" data-close-dialog aria-label="Close">×</button>
+        </div>
+        <div class="dialog-body">
+          <input id="reviewCaseId" type="hidden">
+          <input id="reviewTargetStatus" type="hidden">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="reviewerName">Reviewer</label>
+              <input id="reviewerName" value="Demo Operator" minlength="2" maxlength="80" required>
+            </div>
+            <div class="field full" id="reviewOutcomeField">
+              <label for="reviewOutcome">Outcome</label>
+              <select id="reviewOutcome">
+                <option value="confirmed_abuse">Confirmed abuse</option>
+                <option value="false_positive">False positive</option>
+                <option value="insufficient_evidence">Insufficient evidence</option>
+                <option value="no_action">No action</option>
+              </select>
+            </div>
+            <div class="field full" id="reviewNotesField">
+              <label for="reviewNotes">Resolution notes</label>
+              <textarea id="reviewNotes" minlength="8" maxlength="2000"></textarea>
+              <span class="field-help">Required for resolution and written to the audit event.</span>
+            </div>
+          </div>
+        </div>
+        <div class="dialog-actions">
+          <button class="button" type="button" data-close-dialog>Cancel</button>
+          <button class="button primary" type="submit" id="reviewSubmit">Start review</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="policyDialog">
+      <form id="policyForm">
+        <div class="dialog-head">
+          <div>
+            <h2 id="policyDialogTitle">Edit policy rule</h2>
+            <p>New assessments only; existing evidence snapshots do not change.</p>
+          </div>
+          <button class="dialog-close" type="button" data-close-dialog aria-label="Close">×</button>
+        </div>
+        <div class="dialog-body">
+          <input id="policyId" type="hidden">
+          <div class="form-grid">
+            <div class="field">
+              <label for="policyEnabled">Rule state</label>
+              <select id="policyEnabled">
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="policyWeight">Point multiplier (0–2)</label>
+              <input id="policyWeight" type="number" min="0" max="2" step="0.05" required>
+            </div>
+            <div class="field">
+              <label for="policyThreshold">Trigger threshold</label>
+              <input id="policyThreshold" type="number" min="0" max="100000" step="0.01" required>
+            </div>
+            <div class="field">
+              <label for="policyActor">Changed by</label>
+              <input id="policyActor" value="Demo Operator" minlength="2" maxlength="80" required>
+            </div>
+            <div class="field full">
+              <label for="policyReason">Reason for change</label>
+              <textarea id="policyReason" minlength="5" maxlength="500" required></textarea>
+            </div>
+            <div class="field full">
+              <p class="inline-warning">
+                Policy tuning can create disparate operational outcomes even without protected attributes.
+                Validate changes on representative data before production use.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="dialog-actions">
+          <button class="button" type="button" data-close-dialog>Cancel</button>
+          <button class="button primary" type="submit">Save policy</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="resetDialog">
+      <form id="resetForm">
+        <div class="dialog-head">
+          <div>
+            <h2>Reset seeded demo</h2>
+            <p>This replaces all local assessments, cases, policy edits, and audit events.</p>
+          </div>
+          <button class="dialog-close" type="button" data-close-dialog aria-label="Close">×</button>
+        </div>
+        <div class="dialog-body">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="resetActor">Operator</label>
+              <input id="resetActor" value="Demo Operator" minlength="2" maxlength="80" required>
+            </div>
+            <div class="field full">
+              <label for="resetConfirmation">Type RESET DEMO to continue</label>
+              <input id="resetConfirmation" autocomplete="off" required>
+            </div>
+          </div>
+        </div>
+        <div class="dialog-actions">
+          <button class="button" type="button" data-close-dialog>Cancel</button>
+          <button class="button accent" type="submit">Reset local state</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+Marketplace Trust Starter
+Copyright 2026 Marketplace Trust Starter Contributors
+
+Licensed under the MIT No Attribution License (MIT-0). See LICENSE.
+
+This package is an independent, neutral implementation. It includes no
+customer-specific branding, proprietary datasets, secrets, model weights,
+generated dependency trees, binaries, face analysis, attractiveness logic, or
+appearance-scoring artifacts.
+
+Runtime Python dependencies are declared in pyproject.toml and retain their
+respective licenses.
+

@@ -1,0 +1,37 @@
+name: marketplace-trust-starter
+
+services:
+  app:
+    build: .
+    init: true
+    read_only: true
+    ports:
+      - "${MTS_HOST_PORT:-8101}:8101"
+    environment:
+      MTS_HOST: 0.0.0.0
+      MTS_PORT: 8101
+      MTS_DATABASE_PATH: /data/marketplace_trust_starter.db
+    volumes:
+      - marketplace_trust_data:/data
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8101/api/v1/health', timeout=3)",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  marketplace_trust_data:
+

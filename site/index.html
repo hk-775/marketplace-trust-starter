@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Marketplace Trust Starter is an open-source, explainable trust-and-safety starter with deterministic signals, human review, policy controls, and a seeded local demo."
+    >
+    <title>Marketplace Trust Starter — Explainable trust operations</title>
+    <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="assets/landing.js" defer></script>
+  </head>
+  <body>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html" aria-label="Marketplace Trust Starter home">
+          <img src="assets/mark.svg" alt="">
+          <span>Marketplace <span>Trust Starter</span></span>
+        </a>
+        <div class="nav-links" id="navLinks">
+          <a href="#principles">Principles</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#workflow">Workflow</a>
+          <a href="architecture.html">Architecture</a>
+          <a
+            class="button primary small local-only-link"
+            href="dashboard.html"
+            data-static-href="#quickstart"
+            data-static-label="Run locally"
+          >Open dashboard</a>
+        </div>
+        <button
+          class="mobile-menu-button"
+          id="mobileMenu"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navLinks"
+          aria-label="Toggle navigation"
+        >☰</button>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <p class="eyebrow">Open-source · local-first · human accountable</p>
+            <h1>Trust decisions people can <span class="accent-word">inspect.</span></h1>
+            <p class="hero-copy">
+              A neutral starter for marketplaces and communities: deterministic risk signals,
+              policy controls, evidence-rich review cases, and an audit trail—without opaque
+              models, external credentials, or automatic bans.
+            </p>
+            <div class="hero-actions">
+              <a
+                class="button primary local-only-link"
+                href="dashboard.html"
+                data-static-href="#quickstart"
+                data-static-label="Start the local demo"
+              >Explore the seeded dashboard <span aria-hidden="true">→</span></a>
+              <a class="button ghost" href="architecture.html">Walk the architecture</a>
+            </div>
+            <div class="proof-row" aria-label="Product properties">
+              <span class="proof-pill">Python 3.11+</span>
+              <span class="proof-pill">FastAPI + SQLite</span>
+              <span class="proof-pill">No network calls</span>
+              <span class="proof-pill">MIT-0</span>
+            </div>
+          </div>
+
+          <div class="hero-console" aria-label="Animated example assessment feed">
+            <div class="console-bar">
+              <span class="live-dot">LIVE ASSESSMENTS</span>
+              <span>policy v1</span>
+            </div>
+            <div class="console-stage" id="liveFeed" aria-live="polite"></div>
+            <p class="console-caption">
+              Scores prioritize review. They are not proof, and they never execute irreversible
+              enforcement.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="stat-strip" aria-label="Starter characteristics">
+        <div class="container stat-strip-inner">
+          <div class="stat-item">
+            <strong data-counter="28">28</strong>
+            <span>seeded policy controls</span>
+          </div>
+          <div class="stat-item">
+            <strong data-counter="3">3</strong>
+            <span>assessment surfaces</span>
+          </div>
+          <div class="stat-item">
+            <strong data-counter="0">0</strong>
+            <span>external model calls</span>
+          </div>
+          <div class="stat-item">
+            <strong data-counter="100">100</strong>
+            <span>percent explainable signals</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section" id="principles">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Operating principles</p>
+            <h2>A practical floor for safer marketplace operations.</h2>
+            <p>
+              The starter makes its assumptions visible, separates detection from judgment, and
+              gives operators controls they can test without pretending a demo is a finished
+              moderation program.
+            </p>
+          </div>
+          <div class="principle-grid">
+            <article class="principle-card reveal">
+              <span class="card-number">01</span>
+              <h3>Observable evidence</h3>
+              <p>
+                Every point links to a named rule, bounded contribution, policy multiplier, and
+                human-readable evidence statement.
+              </p>
+            </article>
+            <article class="principle-card reveal">
+              <span class="card-number">02</span>
+              <h3>Precision before volume</h3>
+              <p>
+                Weak evidence stays weak. Links, sparse profiles, reports, or shared devices do
+                not become high risk on their own.
+              </p>
+            </article>
+            <article class="principle-card reveal">
+              <span class="card-number">03</span>
+              <h3>Human accountability</h3>
+              <p>
+                High and critical results create review work. Reviewers claim, document, and
+                resolve cases through enforced state transitions.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ethics-band" aria-labelledby="ethics-title">
+        <div class="container ethics-grid">
+          <div class="reveal">
+            <p class="eyebrow">Locked ethical boundary</p>
+            <h2 id="ethics-title">Behavior, not identity or appearance.</h2>
+          </div>
+          <div class="boundary-list">
+            <div class="boundary-item reveal">
+              <span class="boundary-icon" aria-hidden="true">×</span>
+              <div>
+                <strong>No protected-attribute inference</strong>
+                <span>Demographic, health, identity, and similar fields are rejected before scoring.</span>
+              </div>
+            </div>
+            <div class="boundary-item reveal">
+              <span class="boundary-icon" aria-hidden="true">×</span>
+              <div>
+                <strong>No face or attractiveness scoring</strong>
+                <span>The service accepts no images, face embeddings, beauty scores, or appearance labels.</span>
+              </div>
+            </div>
+            <div class="boundary-item reveal">
+              <span class="boundary-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong>Documented limitations</strong>
+                <span>Every response states that rules detect patterns—not intent, guilt, or truth.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section" id="capabilities">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Complete local product loop</p>
+            <h2>From assessment to accountable resolution.</h2>
+            <p>
+              Useful enough for a product meeting, compact enough to understand in one sitting,
+              and deliberately free of remote dependencies.
+            </p>
+          </div>
+          <div class="capability-grid">
+            <article class="capability-card reveal">
+              <span class="capability-icon">PF</span>
+              <h3>Fake-profile risk</h3>
+              <p>Combines account age, outreach velocity, profile reuse, reports, and payment history.</p>
+            </article>
+            <article class="capability-card reveal">
+              <span class="capability-icon">CT</span>
+              <h3>Scam, spam, and malicious content</h3>
+              <p>Precision-first patterns for financial solicitation, credential theft, direct threats, and bursts.</p>
+            </article>
+            <article class="capability-card reveal">
+              <span class="capability-icon">CA</span>
+              <h3>Coordinated abuse</h3>
+              <p>Corroborates content similarity, synchronized velocity, target pressure, and infrastructure.</p>
+            </article>
+            <article class="capability-card reveal">
+              <span class="capability-icon">HR</span>
+              <h3>Human review queue</h3>
+              <p>Open, in-review, and resolved states with reviewer identity, outcomes, and required notes.</p>
+            </article>
+            <article class="capability-card reveal">
+              <span class="capability-icon">PC</span>
+              <h3>Policy controls</h3>
+              <p>Enable rules, tune bounded weights and thresholds, record reasons, and version every change.</p>
+            </article>
+            <article class="capability-card reveal">
+              <span class="capability-icon">AU</span>
+              <h3>Hash-chained audit</h3>
+              <p>Assessment, routing, review, policy, and reset events are linked and verified on every read.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section compact" id="workflow">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Decision workflow</p>
+            <h2>Detection and judgment stay separate.</h2>
+          </div>
+          <div class="workflow">
+            <article class="workflow-step reveal">
+              <span>STEP 01</span>
+              <h3>Validate</h3>
+              <p>Reject unknown fields and prohibited identity, biometric, or appearance inputs.</p>
+            </article>
+            <article class="workflow-step reveal">
+              <span>STEP 02</span>
+              <h3>Explain</h3>
+              <p>Evaluate enabled rules and return bounded positive and counter-signals.</p>
+            </article>
+            <article class="workflow-step reveal">
+              <span>STEP 03</span>
+              <h3>Route</h3>
+              <p>Low risk passes, guarded risk gathers context, and high risk creates review work.</p>
+            </article>
+            <article class="workflow-step reveal">
+              <span>STEP 04</span>
+              <h3>Decide</h3>
+              <p>A named reviewer records an outcome and notes; the audit chain preserves the event.</p>
+            </article>
+          </div>
+
+          <div class="demo-shell reveal">
+            <div class="demo-copy">
+              <p class="eyebrow">Seeded operator experience</p>
+              <h3>Walk into the meeting with a live queue.</h3>
+              <p>
+                Ten fictional assessments, six review cases, signal analytics, policy controls,
+                and a one-click reset are ready on first boot.
+              </p>
+              <a
+                class="button accent local-only-link"
+                href="dashboard.html"
+                data-static-href="#quickstart"
+                data-static-label="Start the local demo"
+              >Open the operator dashboard</a>
+            </div>
+            <div class="dashboard-preview" aria-label="Illustration of the operator dashboard">
+              <div class="preview-topbar">
+                <strong>Trust Operations</strong>
+                <span>LOCAL DEMO</span>
+              </div>
+              <div class="preview-layout">
+                <div class="preview-sidebar">
+                  <div class="preview-nav-line active"></div>
+                  <div class="preview-nav-line"></div>
+                  <div class="preview-nav-line"></div>
+                  <div class="preview-nav-line"></div>
+                  <div class="preview-nav-line"></div>
+                </div>
+                <div class="preview-content">
+                  <div class="preview-kpis">
+                    <div class="preview-card"><small>ASSESSMENTS</small><strong>10</strong></div>
+                    <div class="preview-card"><small>REVIEW QUEUE</small><strong>4</strong></div>
+                    <div class="preview-card"><small>POLICY VERSION</small><strong>1</strong></div>
+                  </div>
+                  <div class="preview-table">
+                    <div class="preview-row">
+                      <div><div class="preview-line"></div><div class="preview-line short"></div></div>
+                      <div class="preview-badge"></div><span class="preview-score">100</span>
+                    </div>
+                    <div class="preview-row">
+                      <div><div class="preview-line"></div><div class="preview-line short"></div></div>
+                      <div class="preview-badge"></div><span class="preview-score">80</span>
+                    </div>
+                    <div class="preview-row">
+                      <div><div class="preview-line"></div><div class="preview-line short"></div></div>
+                      <div class="preview-badge"></div><span class="preview-score">58</span>
+                    </div>
+                    <div class="preview-row">
+                      <div><div class="preview-line"></div><div class="preview-line short"></div></div>
+                      <div class="preview-badge"></div><span class="preview-score">0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="quickstart-band" id="quickstart">
+        <div class="container quickstart-grid">
+          <div>
+            <h2>One command. Seeded on arrival.</h2>
+            <p>Python 3.11+ is the only platform prerequisite; no credentials are requested.</p>
+          </div>
+          <div class="command-block" aria-label="Demo start command">
+            <span>$</span>
+            <code>./scripts/demo.sh</code>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>Marketplace Trust Starter · MIT-0 · fictional demo data only</span>
+        <div class="footer-links">
+          <a href="architecture.html">Architecture</a>
+          <a class="local-only-link" href="api/docs" data-static-href="#quickstart" data-static-label="API docs">API docs</a>
+          <a href="#ethics-title">Responsible use</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+

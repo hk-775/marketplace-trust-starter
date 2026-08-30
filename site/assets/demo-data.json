@@ -1,0 +1,1866 @@
+{
+  "assessments": {
+    "items": [
+      {
+        "assessment_id": "A-1010",
+        "assessment_type": "content",
+        "case_id": "C-2010",
+        "confidence": 0.83,
+        "counter_signals": [],
+        "created_at": "2026-08-30T13:46:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "queue_for_human_review",
+        "requires_human_review": true,
+        "risk_score": 58,
+        "risk_tier": "high",
+        "signals": [
+          {
+            "base_points": 36,
+            "category": "malicious_content",
+            "description": "Account-verification language is paired with a secret or login prompt.",
+            "evidence": "account-verification language, secret/code request, login or link prompt",
+            "kind": "risk",
+            "label": "Credential-harvesting pattern",
+            "multiplier": 1.0,
+            "points": 36,
+            "signal_id": "content_credentials"
+          },
+          {
+            "base_points": 22,
+            "category": "spam",
+            "description": "Near-identical content reached multiple recipients in a short period.",
+            "evidence": "similar_posts_1h=9; unique_recipients_1h=12",
+            "kind": "risk",
+            "label": "Repeated content distribution",
+            "multiplier": 1.0,
+            "points": 22,
+            "signal_id": "content_spam_repetition"
+          }
+        ],
+        "subject_id": "violet-bridge-430",
+        "summary": "2 risk signals and 0 counter-signals produced a high review priority."
+      },
+      {
+        "assessment_id": "A-1009",
+        "assessment_type": "coordinated_abuse",
+        "case_id": "C-2009",
+        "confidence": 0.77,
+        "counter_signals": [],
+        "created_at": "2026-08-30T13:42:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "queue_for_human_review",
+        "requires_human_review": true,
+        "risk_score": 60,
+        "risk_tier": "high",
+        "signals": [
+          {
+            "base_points": 28,
+            "category": "coordination",
+            "description": "Multiple accounts posted substantially duplicated content.",
+            "evidence": "accounts=8; duplicate_content_ratio=82%",
+            "kind": "risk",
+            "label": "Cross-account content similarity",
+            "multiplier": 1.0,
+            "points": 28,
+            "signal_id": "coordination_similarity"
+          },
+          {
+            "base_points": 20,
+            "category": "coordination",
+            "description": "The cluster produced a concentrated burst of events.",
+            "evidence": "events_10m=95",
+            "kind": "risk",
+            "label": "Synchronized activity burst",
+            "multiplier": 1.0,
+            "points": 20,
+            "signal_id": "coordination_velocity"
+          },
+          {
+            "base_points": 12,
+            "category": "coordination",
+            "description": "Shared device context is counted only with independent coordination evidence.",
+            "evidence": "shared_device_ratio=75%",
+            "kind": "risk",
+            "label": "Corroborating shared infrastructure",
+            "multiplier": 1.0,
+            "points": 12,
+            "signal_id": "coordination_shared_infrastructure"
+          }
+        ],
+        "subject_id": "cluster-workshop",
+        "summary": "3 risk signals and 0 counter-signals produced a high review priority."
+      },
+      {
+        "assessment_id": "A-1008",
+        "assessment_type": "content",
+        "case_id": null,
+        "confidence": 0.84,
+        "counter_signals": [
+          {
+            "base_points": -8,
+            "category": "account_history",
+            "description": "Longstanding successful activity modestly reduces uncertainty.",
+            "evidence": "account_age_days=740; successful_transactions_90d=18",
+            "kind": "counter_signal",
+            "label": "Established positive activity",
+            "multiplier": 1.0,
+            "points": -8,
+            "signal_id": "content_history_counter"
+          }
+        ],
+        "created_at": "2026-08-30T13:38:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "allow_with_standard_controls",
+        "requires_human_review": false,
+        "risk_score": 0,
+        "risk_tier": "low",
+        "signals": [],
+        "subject_id": "cedar-otter-104",
+        "summary": "0 risk signals and 1 counter-signal produced a low review priority."
+      },
+      {
+        "assessment_id": "A-1007",
+        "assessment_type": "profile",
+        "case_id": null,
+        "confidence": 0.72,
+        "counter_signals": [
+          {
+            "base_points": -5,
+            "category": "account_history",
+            "description": "A verified contact channel modestly reduces uncertainty.",
+            "evidence": "verified_contact=true",
+            "kind": "counter_signal",
+            "label": "Verified contact channel",
+            "multiplier": 1.0,
+            "points": -5,
+            "signal_id": "verified_contact_counter"
+          }
+        ],
+        "created_at": "2026-08-30T13:34:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "allow_with_standard_controls",
+        "requires_human_review": false,
+        "risk_score": 7,
+        "risk_tier": "low",
+        "signals": [
+          {
+            "base_points": 12,
+            "category": "profile",
+            "description": "Low completeness is considered only when the account is new.",
+            "evidence": "completeness=22%; account_age_days=1",
+            "kind": "risk",
+            "label": "Sparse new profile",
+            "multiplier": 1.0,
+            "points": 12,
+            "signal_id": "profile_completeness"
+          }
+        ],
+        "subject_id": "paper-kite-288",
+        "summary": "1 risk signal and 1 counter-signal produced a low review priority."
+      },
+      {
+        "assessment_id": "A-1006",
+        "assessment_type": "content",
+        "case_id": "C-2006",
+        "confidence": 0.83,
+        "counter_signals": [],
+        "created_at": "2026-08-30T13:30:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "queue_for_human_review",
+        "requires_human_review": true,
+        "risk_score": 54,
+        "risk_tier": "high",
+        "signals": [
+          {
+            "base_points": 42,
+            "category": "malicious_content",
+            "description": "A high-precision direct threat pattern was found.",
+            "evidence": "i will find where you live",
+            "kind": "risk",
+            "label": "Direct targeted threat",
+            "multiplier": 1.0,
+            "points": 42,
+            "signal_id": "content_threat"
+          },
+          {
+            "base_points": 12,
+            "category": "reports",
+            "description": "Recent reports add supporting context but do not prove a violation.",
+            "evidence": "reports_24h=4",
+            "kind": "risk",
+            "label": "Independent report volume",
+            "multiplier": 1.0,
+            "points": 12,
+            "signal_id": "content_report_history"
+          }
+        ],
+        "subject_id": "storm-glass-019",
+        "summary": "2 risk signals and 0 counter-signals produced a high review priority."
+      },
+      {
+        "assessment_id": "A-1005",
+        "assessment_type": "profile",
+        "case_id": "C-2005",
+        "confidence": 0.96,
+        "counter_signals": [],
+        "created_at": "2026-08-30T13:26:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "queue_for_human_review",
+        "requires_human_review": true,
+        "risk_score": 68,
+        "risk_tier": "high",
+        "signals": [
+          {
+            "base_points": 18,
+            "category": "behavior",
+            "description": "A new account contacted many distinct recipients in one hour.",
+            "evidence": "messages_1h=31; unique_recipients_1h=14",
+            "kind": "risk",
+            "label": "New-account outreach burst",
+            "multiplier": 1.0,
+            "points": 18,
+            "signal_id": "profile_velocity"
+          },
+          {
+            "base_points": 20,
+            "category": "coordination",
+            "description": "The same profile text appeared across multiple recent accounts.",
+            "evidence": "bio_reuse_count_7d=8",
+            "kind": "risk",
+            "label": "Repeated profile text",
+            "multiplier": 1.0,
+            "points": 20,
+            "signal_id": "profile_reuse"
+          },
+          {
+            "base_points": 14,
+            "category": "reports",
+            "description": "Recent reports add context but are capped as supporting evidence.",
+            "evidence": "prior_reports_30d=5",
+            "kind": "risk",
+            "label": "Independent report volume",
+            "multiplier": 1.0,
+            "points": 14,
+            "signal_id": "profile_report_history"
+          },
+          {
+            "base_points": 16,
+            "category": "coordination",
+            "description": "Account linkage is counted only with corroborating content reuse.",
+            "evidence": "linked_accounts_30d=7; bio_reuse_count_7d=8",
+            "kind": "risk",
+            "label": "Linked-account reuse",
+            "multiplier": 1.0,
+            "points": 16,
+            "signal_id": "profile_linkage"
+          }
+        ],
+        "subject_id": "silver-lantern-772",
+        "summary": "4 risk signals and 0 counter-signals produced a high review priority."
+      },
+      {
+        "assessment_id": "A-1004",
+        "assessment_type": "content",
+        "case_id": null,
+        "confidence": 0.75,
+        "counter_signals": [],
+        "created_at": "2026-08-30T13:22:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "monitor_and_collect_more_context",
+        "requires_human_review": false,
+        "risk_score": 40,
+        "risk_tier": "guarded",
+        "signals": [
+          {
+            "base_points": 22,
+            "category": "spam",
+            "description": "Near-identical content reached multiple recipients in a short period.",
+            "evidence": "similar_posts_1h=11; unique_recipients_1h=31",
+            "kind": "risk",
+            "label": "Repeated content distribution",
+            "multiplier": 1.0,
+            "points": 22,
+            "signal_id": "content_spam_repetition"
+          },
+          {
+            "base_points": 18,
+            "category": "spam",
+            "description": "A new account distributed content to unusually many recipients.",
+            "evidence": "account_age_days=3; unique_recipients_1h=31",
+            "kind": "risk",
+            "label": "New-account distribution burst",
+            "multiplier": 1.0,
+            "points": 18,
+            "signal_id": "content_spam_burst"
+          }
+        ],
+        "subject_id": "copper-sparrow-551",
+        "summary": "2 risk signals and 0 counter-signals produced a guarded review priority."
+      },
+      {
+        "assessment_id": "A-1003",
+        "assessment_type": "coordinated_abuse",
+        "case_id": "C-2003",
+        "confidence": 0.91,
+        "counter_signals": [],
+        "created_at": "2026-08-30T13:19:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "prioritize_human_review_and_apply_reversible_friction",
+        "requires_human_review": true,
+        "risk_score": 100,
+        "risk_tier": "critical",
+        "signals": [
+          {
+            "base_points": 28,
+            "category": "coordination",
+            "description": "Multiple accounts posted substantially duplicated content.",
+            "evidence": "accounts=19; duplicate_content_ratio=91%",
+            "kind": "risk",
+            "label": "Cross-account content similarity",
+            "multiplier": 1.0,
+            "points": 28,
+            "signal_id": "coordination_similarity"
+          },
+          {
+            "base_points": 20,
+            "category": "coordination",
+            "description": "The cluster produced a concentrated burst of events.",
+            "evidence": "events_10m=186",
+            "kind": "risk",
+            "label": "Synchronized activity burst",
+            "multiplier": 1.0,
+            "points": 20,
+            "signal_id": "coordination_velocity"
+          },
+          {
+            "base_points": 22,
+            "category": "targeting",
+            "description": "Activity concentrated on a small target set with independent reports.",
+            "evidence": "target_concentration=78%; independent_reports=9",
+            "kind": "risk",
+            "label": "Concentrated target pressure",
+            "multiplier": 1.0,
+            "points": 22,
+            "signal_id": "coordination_targeting"
+          },
+          {
+            "base_points": 12,
+            "category": "coordination",
+            "description": "Shared device context is counted only with independent coordination evidence.",
+            "evidence": "shared_device_ratio=72%",
+            "kind": "risk",
+            "label": "Corroborating shared infrastructure",
+            "multiplier": 1.0,
+            "points": 12,
+            "signal_id": "coordination_shared_infrastructure"
+          },
+          {
+            "base_points": 18,
+            "category": "coordination",
+            "description": "A mostly new-account cluster also shared substantially duplicated content.",
+            "evidence": "new_account_ratio=84%; duplicate_content_ratio=91%",
+            "kind": "risk",
+            "label": "New-account cluster",
+            "multiplier": 1.0,
+            "points": 18,
+            "signal_id": "coordination_new_accounts"
+          }
+        ],
+        "subject_id": "cluster-northstar",
+        "summary": "5 risk signals and 0 counter-signals produced a critical review priority."
+      },
+      {
+        "assessment_id": "A-1002",
+        "assessment_type": "content",
+        "case_id": "C-2002",
+        "confidence": 0.85,
+        "counter_signals": [],
+        "created_at": "2026-08-30T13:16:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "queue_for_human_review",
+        "requires_human_review": true,
+        "risk_score": 56,
+        "risk_tier": "high",
+        "signals": [
+          {
+            "base_points": 34,
+            "category": "scam",
+            "description": "The content combines a financial instrument with a requested action.",
+            "evidence": "gift card, send, buy",
+            "kind": "risk",
+            "label": "Payment or investment solicitation",
+            "multiplier": 1.0,
+            "points": 34,
+            "signal_id": "content_scam"
+          },
+          {
+            "base_points": 10,
+            "category": "scam",
+            "description": "Off-platform solicitation is counted only with new-account or scam context.",
+            "evidence": "telegram, message me",
+            "kind": "risk",
+            "label": "Risk-context off-platform move",
+            "multiplier": 1.0,
+            "points": 10,
+            "signal_id": "content_off_platform"
+          },
+          {
+            "base_points": 12,
+            "category": "reports",
+            "description": "Recent reports add supporting context but do not prove a violation.",
+            "evidence": "reports_24h=4",
+            "kind": "risk",
+            "label": "Independent report volume",
+            "multiplier": 1.0,
+            "points": 12,
+            "signal_id": "content_report_history"
+          }
+        ],
+        "subject_id": "silver-lantern-772",
+        "summary": "3 risk signals and 0 counter-signals produced a high review priority."
+      },
+      {
+        "assessment_id": "A-1001",
+        "assessment_type": "profile",
+        "case_id": null,
+        "confidence": 0.84,
+        "counter_signals": [
+          {
+            "base_points": -5,
+            "category": "account_history",
+            "description": "A verified contact channel modestly reduces uncertainty.",
+            "evidence": "verified_contact=true",
+            "kind": "counter_signal",
+            "label": "Verified contact channel",
+            "multiplier": 1.0,
+            "points": -5,
+            "signal_id": "verified_contact_counter"
+          },
+          {
+            "base_points": -12,
+            "category": "account_history",
+            "description": "Sustained successful activity with no recent reports reduces risk.",
+            "evidence": "account_age_days=740; successful_transactions_90d=18",
+            "kind": "counter_signal",
+            "label": "Established positive history",
+            "multiplier": 1.0,
+            "points": -12,
+            "signal_id": "established_history_counter"
+          },
+          {
+            "base_points": -4,
+            "category": "profile",
+            "description": "A substantially complete profile modestly reduces uncertainty.",
+            "evidence": "profile_completeness=94%",
+            "kind": "counter_signal",
+            "label": "Substantive profile",
+            "multiplier": 1.0,
+            "points": -4,
+            "signal_id": "complete_profile_counter"
+          }
+        ],
+        "created_at": "2026-08-30T13:12:00Z",
+        "limitations": [
+          "Rules identify documented patterns, not intent; context can change the correct outcome.",
+          "Risk scores rank review priority and must not be treated as proof of abuse.",
+          "No protected attributes, biometrics, faces, or appearance characteristics are evaluated.",
+          "Shared infrastructure and reports are supporting evidence only and can reflect benign behavior."
+        ],
+        "policy_version": 1,
+        "recommended_action": "allow_with_standard_controls",
+        "requires_human_review": false,
+        "risk_score": 0,
+        "risk_tier": "low",
+        "signals": [],
+        "subject_id": "cedar-otter-104",
+        "summary": "0 risk signals and 3 counter-signals produced a low review priority."
+      }
+    ],
+    "total": 10
+  },
+  "audit": {
+    "chain_valid": true,
+    "items": [
+      {
+        "action": "demo_reset",
+        "actor": "system-seed",
+        "audit_id": 23,
+        "details": {
+          "assessments": 10,
+          "cases": 6,
+          "policies": 28
+        },
+        "entity_id": "seed-v1",
+        "entity_type": "demo",
+        "event_hash": "20e6316c84ce0dc6082078b5a29fc495cdb7073e5b75cd9f1e19e428e1207a2e",
+        "previous_hash": "d22910ab4229b6e9a88ca2bb6d4ab1b72a5f93d1a93a3072a711bb9c36703b59",
+        "timestamp": "2026-08-30T14:00:00Z"
+      },
+      {
+        "action": "case_created",
+        "actor": "demo-review-router",
+        "audit_id": 22,
+        "details": {
+          "assessment_id": "A-1010",
+          "human_decision_required": true,
+          "priority": "high"
+        },
+        "entity_id": "C-2010",
+        "entity_type": "case",
+        "event_hash": "d22910ab4229b6e9a88ca2bb6d4ab1b72a5f93d1a93a3072a711bb9c36703b59",
+        "previous_hash": "22a9b6d34fcb45e303d146ef88aca6bef51ccedf05cf93fef44ad04efdfbfc15",
+        "timestamp": "2026-08-30T13:46:05Z"
+      },
+      {
+        "action": "case_resolved",
+        "actor": "Riley Park",
+        "audit_id": 21,
+        "details": {
+          "outcome": "false_positive",
+          "resolution_notes": "Community workshop attendees shared a device and posted the same approved notice."
+        },
+        "entity_id": "C-2009",
+        "entity_type": "case",
+        "event_hash": "22a9b6d34fcb45e303d146ef88aca6bef51ccedf05cf93fef44ad04efdfbfc15",
+        "previous_hash": "4d2fca9a032e626dbe907f3d4a8709016d142d788e46d20dffc8d900e19de97c",
+        "timestamp": "2026-08-30T13:53:00Z"
+      },
+      {
+        "action": "review_started",
+        "actor": "Riley Park",
+        "audit_id": 20,
+        "details": {
+          "reviewer": "Riley Park"
+        },
+        "entity_id": "C-2009",
+        "entity_type": "case",
+        "event_hash": "4d2fca9a032e626dbe907f3d4a8709016d142d788e46d20dffc8d900e19de97c",
+        "previous_hash": "2355209a83439c415ea2d1362214a290ce35cef27c859906a67aa4470ee90fba",
+        "timestamp": "2026-08-30T13:47:00Z"
+      },
+      {
+        "action": "case_created",
+        "actor": "demo-review-router",
+        "audit_id": 19,
+        "details": {
+          "assessment_id": "A-1009",
+          "human_decision_required": true,
+          "priority": "high"
+        },
+        "entity_id": "C-2009",
+        "entity_type": "case",
+        "event_hash": "2355209a83439c415ea2d1362214a290ce35cef27c859906a67aa4470ee90fba",
+        "previous_hash": "58aaf4d5fc45dc7b40c32cd9baa85f1655ae2abda4d62d7ed60725a68143b69d",
+        "timestamp": "2026-08-30T13:42:05Z"
+      },
+      {
+        "action": "case_resolved",
+        "actor": "Avery Chen",
+        "audit_id": 18,
+        "details": {
+          "outcome": "confirmed_abuse",
+          "resolution_notes": "Direct threat confirmed; reversible account restrictions were applied."
+        },
+        "entity_id": "C-2006",
+        "entity_type": "case",
+        "event_hash": "58aaf4d5fc45dc7b40c32cd9baa85f1655ae2abda4d62d7ed60725a68143b69d",
+        "previous_hash": "82621e8970b31fc8fcb09cb6c751c37b7e804ac224f7abe52bbdfda48100c34c",
+        "timestamp": "2026-08-30T13:41:00Z"
+      },
+      {
+        "action": "review_started",
+        "actor": "Avery Chen",
+        "audit_id": 17,
+        "details": {
+          "reviewer": "Avery Chen"
+        },
+        "entity_id": "C-2006",
+        "entity_type": "case",
+        "event_hash": "82621e8970b31fc8fcb09cb6c751c37b7e804ac224f7abe52bbdfda48100c34c",
+        "previous_hash": "1b786aff1dc25f73e70a568406e42992b245cd105dbc5dbe374553343f89bdd6",
+        "timestamp": "2026-08-30T13:35:00Z"
+      },
+      {
+        "action": "case_created",
+        "actor": "demo-review-router",
+        "audit_id": 16,
+        "details": {
+          "assessment_id": "A-1006",
+          "human_decision_required": true,
+          "priority": "high"
+        },
+        "entity_id": "C-2006",
+        "entity_type": "case",
+        "event_hash": "1b786aff1dc25f73e70a568406e42992b245cd105dbc5dbe374553343f89bdd6",
+        "previous_hash": "6e4ddbef424baf050eda6491b1685f3e07d79ce5f3d33e3663c5db9a99b49979",
+        "timestamp": "2026-08-30T13:30:05Z"
+      },
+      {
+        "action": "review_started",
+        "actor": "Morgan Reed",
+        "audit_id": 15,
+        "details": {
+          "reviewer": "Morgan Reed"
+        },
+        "entity_id": "C-2005",
+        "entity_type": "case",
+        "event_hash": "6e4ddbef424baf050eda6491b1685f3e07d79ce5f3d33e3663c5db9a99b49979",
+        "previous_hash": "fef2dfb8ebba5a1caad7051917c37ab700717ebe34e9d9d7481bfac571db91a7",
+        "timestamp": "2026-08-30T13:50:00Z"
+      },
+      {
+        "action": "case_created",
+        "actor": "demo-review-router",
+        "audit_id": 14,
+        "details": {
+          "assessment_id": "A-1005",
+          "human_decision_required": true,
+          "priority": "urgent"
+        },
+        "entity_id": "C-2005",
+        "entity_type": "case",
+        "event_hash": "fef2dfb8ebba5a1caad7051917c37ab700717ebe34e9d9d7481bfac571db91a7",
+        "previous_hash": "2b52446e58ae672a050c45eddb62f823bc69086afd284de7a87f41d3b63ab24e",
+        "timestamp": "2026-08-30T13:26:05Z"
+      },
+      {
+        "action": "case_created",
+        "actor": "demo-review-router",
+        "audit_id": 13,
+        "details": {
+          "assessment_id": "A-1003",
+          "human_decision_required": true,
+          "priority": "urgent"
+        },
+        "entity_id": "C-2003",
+        "entity_type": "case",
+        "event_hash": "2b52446e58ae672a050c45eddb62f823bc69086afd284de7a87f41d3b63ab24e",
+        "previous_hash": "5cb6186911e265123f992f151cd045274ffe3b492adfa263821d5661f7a0d1fc",
+        "timestamp": "2026-08-30T13:19:05Z"
+      },
+      {
+        "action": "case_created",
+        "actor": "demo-review-router",
+        "audit_id": 12,
+        "details": {
+          "assessment_id": "A-1002",
+          "human_decision_required": true,
+          "priority": "high"
+        },
+        "entity_id": "C-2002",
+        "entity_type": "case",
+        "event_hash": "5cb6186911e265123f992f151cd045274ffe3b492adfa263821d5661f7a0d1fc",
+        "previous_hash": "651223819b14f7758e75eea62fad836df8ef3604592a81015f6466fbb7d55450",
+        "timestamp": "2026-08-30T13:16:05Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 11,
+        "details": {
+          "requires_human_review": true,
+          "risk_score": 58,
+          "risk_tier": "high"
+        },
+        "entity_id": "A-1010",
+        "entity_type": "assessment",
+        "event_hash": "651223819b14f7758e75eea62fad836df8ef3604592a81015f6466fbb7d55450",
+        "previous_hash": "75252c0b9ad9f7124830ec889748195a5295e956abc3ed087197eb5891e79214",
+        "timestamp": "2026-08-30T13:46:00Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 10,
+        "details": {
+          "requires_human_review": true,
+          "risk_score": 60,
+          "risk_tier": "high"
+        },
+        "entity_id": "A-1009",
+        "entity_type": "assessment",
+        "event_hash": "75252c0b9ad9f7124830ec889748195a5295e956abc3ed087197eb5891e79214",
+        "previous_hash": "ff1ffd4f90b1dd0cfb6544681c9fe6427c5a009177b243dfdae2c48c73bd1990",
+        "timestamp": "2026-08-30T13:42:00Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 9,
+        "details": {
+          "requires_human_review": false,
+          "risk_score": 0,
+          "risk_tier": "low"
+        },
+        "entity_id": "A-1008",
+        "entity_type": "assessment",
+        "event_hash": "ff1ffd4f90b1dd0cfb6544681c9fe6427c5a009177b243dfdae2c48c73bd1990",
+        "previous_hash": "56ee3611b1544d55b5b69c5bd35900f1fe7ee88c2214f95ddb0c63d0f5949928",
+        "timestamp": "2026-08-30T13:38:00Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 8,
+        "details": {
+          "requires_human_review": false,
+          "risk_score": 7,
+          "risk_tier": "low"
+        },
+        "entity_id": "A-1007",
+        "entity_type": "assessment",
+        "event_hash": "56ee3611b1544d55b5b69c5bd35900f1fe7ee88c2214f95ddb0c63d0f5949928",
+        "previous_hash": "62717288c0b95183eae749561a2d05236332f0a752571c96203fa144c94710ff",
+        "timestamp": "2026-08-30T13:34:00Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 7,
+        "details": {
+          "requires_human_review": true,
+          "risk_score": 54,
+          "risk_tier": "high"
+        },
+        "entity_id": "A-1006",
+        "entity_type": "assessment",
+        "event_hash": "62717288c0b95183eae749561a2d05236332f0a752571c96203fa144c94710ff",
+        "previous_hash": "53f6d438b31738a00e21d7c2a8c3a25ca1fdd2099455171bb3a6177a0202084e",
+        "timestamp": "2026-08-30T13:30:00Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 6,
+        "details": {
+          "requires_human_review": true,
+          "risk_score": 68,
+          "risk_tier": "high"
+        },
+        "entity_id": "A-1005",
+        "entity_type": "assessment",
+        "event_hash": "53f6d438b31738a00e21d7c2a8c3a25ca1fdd2099455171bb3a6177a0202084e",
+        "previous_hash": "f1a9bc18d9bbc5a1a59b3d2acd82f8da590ad94918fccb7ebe79c55a538171b7",
+        "timestamp": "2026-08-30T13:26:00Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 5,
+        "details": {
+          "requires_human_review": false,
+          "risk_score": 40,
+          "risk_tier": "guarded"
+        },
+        "entity_id": "A-1004",
+        "entity_type": "assessment",
+        "event_hash": "f1a9bc18d9bbc5a1a59b3d2acd82f8da590ad94918fccb7ebe79c55a538171b7",
+        "previous_hash": "24329009503c590c4fcd997671b87348c0c774f1fcf2df17d89f415401124326",
+        "timestamp": "2026-08-30T13:22:00Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 4,
+        "details": {
+          "requires_human_review": true,
+          "risk_score": 100,
+          "risk_tier": "critical"
+        },
+        "entity_id": "A-1003",
+        "entity_type": "assessment",
+        "event_hash": "24329009503c590c4fcd997671b87348c0c774f1fcf2df17d89f415401124326",
+        "previous_hash": "70f6525889d29dac4559ab47648012e9995c8a55a2625be8a5b0005b90ce54e9",
+        "timestamp": "2026-08-30T13:19:00Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 3,
+        "details": {
+          "requires_human_review": true,
+          "risk_score": 56,
+          "risk_tier": "high"
+        },
+        "entity_id": "A-1002",
+        "entity_type": "assessment",
+        "event_hash": "70f6525889d29dac4559ab47648012e9995c8a55a2625be8a5b0005b90ce54e9",
+        "previous_hash": "954381e1c2e452f6b5be1903848778378e9b30954a8775db160cde60c46691a2",
+        "timestamp": "2026-08-30T13:16:00Z"
+      },
+      {
+        "action": "assessment_recorded",
+        "actor": "demo-signal-engine",
+        "audit_id": 2,
+        "details": {
+          "requires_human_review": false,
+          "risk_score": 0,
+          "risk_tier": "low"
+        },
+        "entity_id": "A-1001",
+        "entity_type": "assessment",
+        "event_hash": "954381e1c2e452f6b5be1903848778378e9b30954a8775db160cde60c46691a2",
+        "previous_hash": "21907df37f4c4044433ce9915370bae08da08cb5b46fa880214a86c2c385ce9c",
+        "timestamp": "2026-08-30T13:12:00Z"
+      },
+      {
+        "action": "ethical_boundary_loaded",
+        "actor": "system-seed",
+        "audit_id": 1,
+        "details": {
+          "face_and_attractiveness_scoring": "prohibited",
+          "protected_attribute_inference": "prohibited"
+        },
+        "entity_id": "protected_attribute_guard",
+        "entity_type": "policy",
+        "event_hash": "21907df37f4c4044433ce9915370bae08da08cb5b46fa880214a86c2c385ce9c",
+        "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "timestamp": "2026-08-30T13:00:00Z"
+      }
+    ],
+    "total": 23
+  },
+  "cases": {
+    "items": [
+      {
+        "assessment_id": "A-1005",
+        "assessment_type": "profile",
+        "assigned_to": "Morgan Reed",
+        "case_id": "C-2005",
+        "created_at": "2026-08-30T13:26:05Z",
+        "evidence": [
+          {
+            "base_points": 18,
+            "category": "behavior",
+            "description": "A new account contacted many distinct recipients in one hour.",
+            "evidence": "messages_1h=31; unique_recipients_1h=14",
+            "kind": "risk",
+            "label": "New-account outreach burst",
+            "multiplier": 1.0,
+            "points": 18,
+            "signal_id": "profile_velocity"
+          },
+          {
+            "base_points": 20,
+            "category": "coordination",
+            "description": "The same profile text appeared across multiple recent accounts.",
+            "evidence": "bio_reuse_count_7d=8",
+            "kind": "risk",
+            "label": "Repeated profile text",
+            "multiplier": 1.0,
+            "points": 20,
+            "signal_id": "profile_reuse"
+          },
+          {
+            "base_points": 14,
+            "category": "reports",
+            "description": "Recent reports add context but are capped as supporting evidence.",
+            "evidence": "prior_reports_30d=5",
+            "kind": "risk",
+            "label": "Independent report volume",
+            "multiplier": 1.0,
+            "points": 14,
+            "signal_id": "profile_report_history"
+          },
+          {
+            "base_points": 16,
+            "category": "coordination",
+            "description": "Account linkage is counted only with corroborating content reuse.",
+            "evidence": "linked_accounts_30d=7; bio_reuse_count_7d=8",
+            "kind": "risk",
+            "label": "Linked-account reuse",
+            "multiplier": 1.0,
+            "points": 16,
+            "signal_id": "profile_linkage"
+          }
+        ],
+        "human_decision_required": true,
+        "outcome": null,
+        "priority": "urgent",
+        "resolution_notes": null,
+        "resolved_at": null,
+        "review_started_at": "2026-08-30T13:50:00Z",
+        "risk_score": 68,
+        "risk_tier": "high",
+        "status": "in_review",
+        "subject_id": "silver-lantern-772",
+        "summary": "4 risk signals and 0 counter-signals produced a high review priority."
+      },
+      {
+        "assessment_id": "A-1003",
+        "assessment_type": "coordinated_abuse",
+        "assigned_to": null,
+        "case_id": "C-2003",
+        "created_at": "2026-08-30T13:19:05Z",
+        "evidence": [
+          {
+            "base_points": 28,
+            "category": "coordination",
+            "description": "Multiple accounts posted substantially duplicated content.",
+            "evidence": "accounts=19; duplicate_content_ratio=91%",
+            "kind": "risk",
+            "label": "Cross-account content similarity",
+            "multiplier": 1.0,
+            "points": 28,
+            "signal_id": "coordination_similarity"
+          },
+          {
+            "base_points": 20,
+            "category": "coordination",
+            "description": "The cluster produced a concentrated burst of events.",
+            "evidence": "events_10m=186",
+            "kind": "risk",
+            "label": "Synchronized activity burst",
+            "multiplier": 1.0,
+            "points": 20,
+            "signal_id": "coordination_velocity"
+          },
+          {
+            "base_points": 22,
+            "category": "targeting",
+            "description": "Activity concentrated on a small target set with independent reports.",
+            "evidence": "target_concentration=78%; independent_reports=9",
+            "kind": "risk",
+            "label": "Concentrated target pressure",
+            "multiplier": 1.0,
+            "points": 22,
+            "signal_id": "coordination_targeting"
+          },
+          {
+            "base_points": 12,
+            "category": "coordination",
+            "description": "Shared device context is counted only with independent coordination evidence.",
+            "evidence": "shared_device_ratio=72%",
+            "kind": "risk",
+            "label": "Corroborating shared infrastructure",
+            "multiplier": 1.0,
+            "points": 12,
+            "signal_id": "coordination_shared_infrastructure"
+          },
+          {
+            "base_points": 18,
+            "category": "coordination",
+            "description": "A mostly new-account cluster also shared substantially duplicated content.",
+            "evidence": "new_account_ratio=84%; duplicate_content_ratio=91%",
+            "kind": "risk",
+            "label": "New-account cluster",
+            "multiplier": 1.0,
+            "points": 18,
+            "signal_id": "coordination_new_accounts"
+          }
+        ],
+        "human_decision_required": true,
+        "outcome": null,
+        "priority": "urgent",
+        "resolution_notes": null,
+        "resolved_at": null,
+        "review_started_at": null,
+        "risk_score": 100,
+        "risk_tier": "critical",
+        "status": "open",
+        "subject_id": "cluster-northstar",
+        "summary": "5 risk signals and 0 counter-signals produced a critical review priority."
+      },
+      {
+        "assessment_id": "A-1010",
+        "assessment_type": "content",
+        "assigned_to": null,
+        "case_id": "C-2010",
+        "created_at": "2026-08-30T13:46:05Z",
+        "evidence": [
+          {
+            "base_points": 36,
+            "category": "malicious_content",
+            "description": "Account-verification language is paired with a secret or login prompt.",
+            "evidence": "account-verification language, secret/code request, login or link prompt",
+            "kind": "risk",
+            "label": "Credential-harvesting pattern",
+            "multiplier": 1.0,
+            "points": 36,
+            "signal_id": "content_credentials"
+          },
+          {
+            "base_points": 22,
+            "category": "spam",
+            "description": "Near-identical content reached multiple recipients in a short period.",
+            "evidence": "similar_posts_1h=9; unique_recipients_1h=12",
+            "kind": "risk",
+            "label": "Repeated content distribution",
+            "multiplier": 1.0,
+            "points": 22,
+            "signal_id": "content_spam_repetition"
+          }
+        ],
+        "human_decision_required": true,
+        "outcome": null,
+        "priority": "high",
+        "resolution_notes": null,
+        "resolved_at": null,
+        "review_started_at": null,
+        "risk_score": 58,
+        "risk_tier": "high",
+        "status": "open",
+        "subject_id": "violet-bridge-430",
+        "summary": "2 risk signals and 0 counter-signals produced a high review priority."
+      },
+      {
+        "assessment_id": "A-1009",
+        "assessment_type": "coordinated_abuse",
+        "assigned_to": "Riley Park",
+        "case_id": "C-2009",
+        "created_at": "2026-08-30T13:42:05Z",
+        "evidence": [
+          {
+            "base_points": 28,
+            "category": "coordination",
+            "description": "Multiple accounts posted substantially duplicated content.",
+            "evidence": "accounts=8; duplicate_content_ratio=82%",
+            "kind": "risk",
+            "label": "Cross-account content similarity",
+            "multiplier": 1.0,
+            "points": 28,
+            "signal_id": "coordination_similarity"
+          },
+          {
+            "base_points": 20,
+            "category": "coordination",
+            "description": "The cluster produced a concentrated burst of events.",
+            "evidence": "events_10m=95",
+            "kind": "risk",
+            "label": "Synchronized activity burst",
+            "multiplier": 1.0,
+            "points": 20,
+            "signal_id": "coordination_velocity"
+          },
+          {
+            "base_points": 12,
+            "category": "coordination",
+            "description": "Shared device context is counted only with independent coordination evidence.",
+            "evidence": "shared_device_ratio=75%",
+            "kind": "risk",
+            "label": "Corroborating shared infrastructure",
+            "multiplier": 1.0,
+            "points": 12,
+            "signal_id": "coordination_shared_infrastructure"
+          }
+        ],
+        "human_decision_required": true,
+        "outcome": "false_positive",
+        "priority": "high",
+        "resolution_notes": "Community workshop attendees shared a device and posted the same approved notice.",
+        "resolved_at": "2026-08-30T13:53:00Z",
+        "review_started_at": "2026-08-30T13:47:00Z",
+        "risk_score": 60,
+        "risk_tier": "high",
+        "status": "resolved",
+        "subject_id": "cluster-workshop",
+        "summary": "3 risk signals and 0 counter-signals produced a high review priority."
+      },
+      {
+        "assessment_id": "A-1006",
+        "assessment_type": "content",
+        "assigned_to": "Avery Chen",
+        "case_id": "C-2006",
+        "created_at": "2026-08-30T13:30:05Z",
+        "evidence": [
+          {
+            "base_points": 42,
+            "category": "malicious_content",
+            "description": "A high-precision direct threat pattern was found.",
+            "evidence": "i will find where you live",
+            "kind": "risk",
+            "label": "Direct targeted threat",
+            "multiplier": 1.0,
+            "points": 42,
+            "signal_id": "content_threat"
+          },
+          {
+            "base_points": 12,
+            "category": "reports",
+            "description": "Recent reports add supporting context but do not prove a violation.",
+            "evidence": "reports_24h=4",
+            "kind": "risk",
+            "label": "Independent report volume",
+            "multiplier": 1.0,
+            "points": 12,
+            "signal_id": "content_report_history"
+          }
+        ],
+        "human_decision_required": true,
+        "outcome": "confirmed_abuse",
+        "priority": "high",
+        "resolution_notes": "Direct threat confirmed; reversible account restrictions were applied.",
+        "resolved_at": "2026-08-30T13:41:00Z",
+        "review_started_at": "2026-08-30T13:35:00Z",
+        "risk_score": 54,
+        "risk_tier": "high",
+        "status": "resolved",
+        "subject_id": "storm-glass-019",
+        "summary": "2 risk signals and 0 counter-signals produced a high review priority."
+      },
+      {
+        "assessment_id": "A-1002",
+        "assessment_type": "content",
+        "assigned_to": null,
+        "case_id": "C-2002",
+        "created_at": "2026-08-30T13:16:05Z",
+        "evidence": [
+          {
+            "base_points": 34,
+            "category": "scam",
+            "description": "The content combines a financial instrument with a requested action.",
+            "evidence": "gift card, send, buy",
+            "kind": "risk",
+            "label": "Payment or investment solicitation",
+            "multiplier": 1.0,
+            "points": 34,
+            "signal_id": "content_scam"
+          },
+          {
+            "base_points": 10,
+            "category": "scam",
+            "description": "Off-platform solicitation is counted only with new-account or scam context.",
+            "evidence": "telegram, message me",
+            "kind": "risk",
+            "label": "Risk-context off-platform move",
+            "multiplier": 1.0,
+            "points": 10,
+            "signal_id": "content_off_platform"
+          },
+          {
+            "base_points": 12,
+            "category": "reports",
+            "description": "Recent reports add supporting context but do not prove a violation.",
+            "evidence": "reports_24h=4",
+            "kind": "risk",
+            "label": "Independent report volume",
+            "multiplier": 1.0,
+            "points": 12,
+            "signal_id": "content_report_history"
+          }
+        ],
+        "human_decision_required": true,
+        "outcome": null,
+        "priority": "high",
+        "resolution_notes": null,
+        "resolved_at": null,
+        "review_started_at": null,
+        "risk_score": 56,
+        "risk_tier": "high",
+        "status": "open",
+        "subject_id": "silver-lantern-772",
+        "summary": "3 risk signals and 0 counter-signals produced a high review priority."
+      }
+    ],
+    "total": 6
+  },
+  "insights": {
+    "counter_signal_hits": [
+      {
+        "hits": 2,
+        "name": "Verified contact counter-signal",
+        "signal_id": "verified_contact_counter"
+      },
+      {
+        "hits": 1,
+        "name": "Positive transaction history",
+        "signal_id": "content_history_counter"
+      },
+      {
+        "hits": 1,
+        "name": "Established history counter-signal",
+        "signal_id": "established_history_counter"
+      },
+      {
+        "hits": 1,
+        "name": "Complete profile counter-signal",
+        "signal_id": "complete_profile_counter"
+      }
+    ],
+    "engine": {
+      "external_models": 0,
+      "network_calls": 0,
+      "policy_version": 1,
+      "type": "deterministic_rules"
+    },
+    "safeguards": [
+      "Protected-attribute inference is rejected at validation.",
+      "Face, biometric, attractiveness, and appearance scoring are prohibited.",
+      "High scores create human review cases; they do not execute punishment.",
+      "Reports and shared infrastructure are supporting evidence only."
+    ],
+    "top_signals": [
+      {
+        "average_points": 22.0,
+        "category": "spam",
+        "enabled": true,
+        "hits": 2,
+        "name": "Repeated content distribution",
+        "signal_id": "content_spam_repetition"
+      },
+      {
+        "average_points": 28.0,
+        "category": "coordination",
+        "enabled": true,
+        "hits": 2,
+        "name": "Cross-account content similarity",
+        "signal_id": "coordination_similarity"
+      },
+      {
+        "average_points": 20.0,
+        "category": "coordination",
+        "enabled": true,
+        "hits": 2,
+        "name": "Synchronized activity burst",
+        "signal_id": "coordination_velocity"
+      },
+      {
+        "average_points": 12.0,
+        "category": "coordination",
+        "enabled": true,
+        "hits": 2,
+        "name": "Shared infrastructure corroboration",
+        "signal_id": "coordination_shared_infrastructure"
+      },
+      {
+        "average_points": 12.0,
+        "category": "reports",
+        "enabled": true,
+        "hits": 2,
+        "name": "Content report context",
+        "signal_id": "content_report_history"
+      },
+      {
+        "average_points": 36.0,
+        "category": "content",
+        "enabled": true,
+        "hits": 1,
+        "name": "Credential-harvesting pattern",
+        "signal_id": "content_credentials"
+      },
+      {
+        "average_points": 12.0,
+        "category": "profile",
+        "enabled": true,
+        "hits": 1,
+        "name": "Sparse new profile",
+        "signal_id": "profile_completeness"
+      },
+      {
+        "average_points": 42.0,
+        "category": "content",
+        "enabled": true,
+        "hits": 1,
+        "name": "Direct targeted threat",
+        "signal_id": "content_threat"
+      },
+      {
+        "average_points": 18.0,
+        "category": "behavior",
+        "enabled": true,
+        "hits": 1,
+        "name": "New-account outreach burst",
+        "signal_id": "profile_velocity"
+      },
+      {
+        "average_points": 20.0,
+        "category": "coordination",
+        "enabled": true,
+        "hits": 1,
+        "name": "Repeated profile text",
+        "signal_id": "profile_reuse"
+      },
+      {
+        "average_points": 14.0,
+        "category": "reports",
+        "enabled": true,
+        "hits": 1,
+        "name": "Profile report context",
+        "signal_id": "profile_report_history"
+      },
+      {
+        "average_points": 16.0,
+        "category": "coordination",
+        "enabled": true,
+        "hits": 1,
+        "name": "Linked-account reuse",
+        "signal_id": "profile_linkage"
+      },
+      {
+        "average_points": 18.0,
+        "category": "spam",
+        "enabled": true,
+        "hits": 1,
+        "name": "New-account distribution burst",
+        "signal_id": "content_spam_burst"
+      },
+      {
+        "average_points": 22.0,
+        "category": "coordination",
+        "enabled": true,
+        "hits": 1,
+        "name": "Concentrated target pressure",
+        "signal_id": "coordination_targeting"
+      },
+      {
+        "average_points": 18.0,
+        "category": "coordination",
+        "enabled": true,
+        "hits": 1,
+        "name": "New-account cluster",
+        "signal_id": "coordination_new_accounts"
+      },
+      {
+        "average_points": 34.0,
+        "category": "content",
+        "enabled": true,
+        "hits": 1,
+        "name": "Payment or investment solicitation",
+        "signal_id": "content_scam"
+      },
+      {
+        "average_points": 10.0,
+        "category": "scam",
+        "enabled": true,
+        "hits": 1,
+        "name": "Risk-context off-platform move",
+        "signal_id": "content_off_platform"
+      }
+    ]
+  },
+  "metrics": {
+    "case_status_distribution": {
+      "in_review": 1,
+      "open": 3,
+      "resolved": 2
+    },
+    "generated_at": "2026-08-30T14:00:00Z",
+    "kpis": {
+      "false_positive_review_rate": 0.5,
+      "high_or_critical_rate": 0.6,
+      "median_risk_score": 56,
+      "review_queue": 4,
+      "total_assessments": 10
+    },
+    "policy_version": 1,
+    "review_outcomes": {
+      "confirmed_abuse": 1,
+      "false_positive": 1
+    },
+    "tier_distribution": {
+      "critical": 1,
+      "guarded": 1,
+      "high": 5,
+      "low": 3
+    },
+    "total_cases": 6
+  },
+  "policies": [
+    {
+      "category": "behavior",
+      "default_enabled": true,
+      "default_threshold": 24.0,
+      "default_weight": 1.0,
+      "description": "Requires both a new account and broad one-hour recipient activity.",
+      "editable": true,
+      "enabled": true,
+      "name": "New-account outreach burst",
+      "policy_id": "profile_velocity",
+      "threshold": 24.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "content",
+      "default_enabled": true,
+      "default_threshold": 1.0,
+      "default_weight": 1.0,
+      "description": "Requires account-verification context plus a secret or login prompt.",
+      "editable": true,
+      "enabled": true,
+      "name": "Credential-harvesting pattern",
+      "policy_id": "content_credentials",
+      "threshold": 1.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "content",
+      "default_enabled": true,
+      "default_threshold": 1.0,
+      "default_weight": 1.0,
+      "description": "Uses a narrow set of direct threat patterns to protect precision.",
+      "editable": true,
+      "enabled": true,
+      "name": "Direct targeted threat",
+      "policy_id": "content_threat",
+      "threshold": 1.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "content",
+      "default_enabled": true,
+      "default_threshold": 1.0,
+      "default_weight": 1.0,
+      "description": "Requires both a financial instrument and a requested action.",
+      "editable": true,
+      "enabled": true,
+      "name": "Payment or investment solicitation",
+      "policy_id": "content_scam",
+      "threshold": 1.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "content",
+      "default_enabled": true,
+      "default_threshold": 1.0,
+      "default_weight": 1.0,
+      "description": "Requires a payment instrument plus requested action or guaranteed-return claim.",
+      "editable": true,
+      "enabled": true,
+      "name": "Profile financial solicitation",
+      "policy_id": "profile_scam_language",
+      "threshold": 1.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "coordination",
+      "default_enabled": true,
+      "default_threshold": 0.65,
+      "default_weight": 1.0,
+      "description": "Requires target concentration plus independent reports.",
+      "editable": true,
+      "enabled": true,
+      "name": "Concentrated target pressure",
+      "policy_id": "coordination_targeting",
+      "threshold": 0.65,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "coordination",
+      "default_enabled": true,
+      "default_threshold": 0.72,
+      "default_weight": 1.0,
+      "description": "Requires substantial duplication across at least four accounts.",
+      "editable": true,
+      "enabled": true,
+      "name": "Cross-account content similarity",
+      "policy_id": "coordination_similarity",
+      "threshold": 0.72,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "coordination",
+      "default_enabled": true,
+      "default_threshold": 4.0,
+      "default_weight": 1.0,
+      "description": "Counts account linkage only when content reuse also exists.",
+      "editable": true,
+      "enabled": true,
+      "name": "Linked-account reuse",
+      "policy_id": "profile_linkage",
+      "threshold": 4.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "coordination",
+      "default_enabled": true,
+      "default_threshold": 0.7,
+      "default_weight": 1.0,
+      "description": "Requires a mostly new-account cluster plus duplicated content.",
+      "editable": true,
+      "enabled": true,
+      "name": "New-account cluster",
+      "policy_id": "coordination_new_accounts",
+      "threshold": 0.7,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "coordination",
+      "default_enabled": true,
+      "default_threshold": 5.0,
+      "default_weight": 1.0,
+      "description": "Detects repeated profile text across recent accounts.",
+      "editable": true,
+      "enabled": true,
+      "name": "Repeated profile text",
+      "policy_id": "profile_reuse",
+      "threshold": 5.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "coordination",
+      "default_enabled": true,
+      "default_threshold": 0.6,
+      "default_weight": 1.0,
+      "description": "Never scores alone; it corroborates similarity or velocity evidence.",
+      "editable": true,
+      "enabled": true,
+      "name": "Shared infrastructure corroboration",
+      "policy_id": "coordination_shared_infrastructure",
+      "threshold": 0.6,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "coordination",
+      "default_enabled": true,
+      "default_threshold": 80.0,
+      "default_weight": 1.0,
+      "description": "Detects high event velocity across at least five accounts.",
+      "editable": true,
+      "enabled": true,
+      "name": "Synchronized activity burst",
+      "policy_id": "coordination_velocity",
+      "threshold": 80.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "counter_signal",
+      "default_enabled": true,
+      "default_threshold": 0.8,
+      "default_weight": 1.0,
+      "description": "Modestly reduces uncertainty for a substantive profile.",
+      "editable": true,
+      "enabled": true,
+      "name": "Complete profile counter-signal",
+      "policy_id": "complete_profile_counter",
+      "threshold": 0.8,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "counter_signal",
+      "default_enabled": true,
+      "default_threshold": 0.7,
+      "default_weight": 1.0,
+      "description": "Reduces concern for established accounts with diverse content and no reports.",
+      "editable": true,
+      "enabled": true,
+      "name": "Established cluster counter-signal",
+      "policy_id": "coordination_history_counter",
+      "threshold": 0.7,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "counter_signal",
+      "default_enabled": true,
+      "default_threshold": 180.0,
+      "default_weight": 1.0,
+      "description": "Rewards sustained successful activity without reports or chargebacks.",
+      "editable": true,
+      "enabled": true,
+      "name": "Established history counter-signal",
+      "policy_id": "established_history_counter",
+      "threshold": 180.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "counter_signal",
+      "default_enabled": true,
+      "default_threshold": 365.0,
+      "default_weight": 1.0,
+      "description": "Modestly reduces uncertainty for established successful activity.",
+      "editable": true,
+      "enabled": true,
+      "name": "Positive transaction history",
+      "policy_id": "content_history_counter",
+      "threshold": 365.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "counter_signal",
+      "default_enabled": true,
+      "default_threshold": 1.0,
+      "default_weight": 1.0,
+      "description": "Modestly reduces uncertainty for a verified contact channel.",
+      "editable": true,
+      "enabled": true,
+      "name": "Verified contact counter-signal",
+      "policy_id": "verified_contact_counter",
+      "threshold": 1.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "ethical_boundary",
+      "default_enabled": true,
+      "default_threshold": 1.0,
+      "default_weight": 1.0,
+      "description": "Rejects protected-attribute, biometric, face, and attractiveness inputs.",
+      "editable": false,
+      "enabled": true,
+      "name": "Protected-attribute and appearance guard",
+      "policy_id": "protected_attribute_guard",
+      "threshold": 1.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "governance",
+      "default_enabled": true,
+      "default_threshold": 75.0,
+      "default_weight": 1.0,
+      "description": "Score where human review receives urgent priority.",
+      "editable": false,
+      "enabled": true,
+      "name": "Critical tier threshold",
+      "policy_id": "risk_critical_threshold",
+      "threshold": 75.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "governance",
+      "default_enabled": true,
+      "default_threshold": 25.0,
+      "default_weight": 1.0,
+      "description": "Score where enhanced observation begins.",
+      "editable": false,
+      "enabled": true,
+      "name": "Guarded tier threshold",
+      "policy_id": "risk_guarded_threshold",
+      "threshold": 25.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "governance",
+      "default_enabled": true,
+      "default_threshold": 50.0,
+      "default_weight": 1.0,
+      "description": "Scores at or above this value create a real review case; never an automatic ban.",
+      "editable": false,
+      "enabled": true,
+      "name": "Human review gate",
+      "policy_id": "human_review_gate",
+      "threshold": 50.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "profile",
+      "default_enabled": true,
+      "default_threshold": 0.35,
+      "default_weight": 1.0,
+      "description": "Scores low completeness only for a newly created account.",
+      "editable": true,
+      "enabled": true,
+      "name": "Sparse new profile",
+      "policy_id": "profile_completeness",
+      "threshold": 0.35,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "reports",
+      "default_enabled": true,
+      "default_threshold": 3.0,
+      "default_weight": 1.0,
+      "description": "Adds capped supporting context from recent independent reports.",
+      "editable": true,
+      "enabled": true,
+      "name": "Content report context",
+      "policy_id": "content_report_history",
+      "threshold": 3.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "reports",
+      "default_enabled": true,
+      "default_threshold": 3.0,
+      "default_weight": 1.0,
+      "description": "Adds capped supporting context from recent independent reports.",
+      "editable": true,
+      "enabled": true,
+      "name": "Profile report context",
+      "policy_id": "profile_report_history",
+      "threshold": 3.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "scam",
+      "default_enabled": true,
+      "default_threshold": 1.0,
+      "default_weight": 1.0,
+      "description": "Counts off-platform solicitation only with new-account or scam context.",
+      "editable": true,
+      "enabled": true,
+      "name": "Risk-context off-platform move",
+      "policy_id": "content_off_platform",
+      "threshold": 1.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "spam",
+      "default_enabled": true,
+      "default_threshold": 25.0,
+      "default_weight": 1.0,
+      "description": "Detects broad distribution by a recently created account.",
+      "editable": true,
+      "enabled": true,
+      "name": "New-account distribution burst",
+      "policy_id": "content_spam_burst",
+      "threshold": 25.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "spam",
+      "default_enabled": true,
+      "default_threshold": 5.0,
+      "default_weight": 1.0,
+      "description": "Requires similar content and multiple distinct recipients.",
+      "editable": true,
+      "enabled": true,
+      "name": "Repeated content distribution",
+      "policy_id": "content_spam_repetition",
+      "threshold": 5.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    },
+    {
+      "category": "transactions",
+      "default_enabled": true,
+      "default_threshold": 2.0,
+      "default_weight": 1.0,
+      "description": "Detects multiple recent chargebacks.",
+      "editable": true,
+      "enabled": true,
+      "name": "Payment reversal pattern",
+      "policy_id": "profile_payment_abuse",
+      "threshold": 2.0,
+      "updated_at": "2026-08-30T13:00:00Z",
+      "version": 1,
+      "weight": 1.0
+    }
+  ],
+  "scenarios": {
+    "items": [
+      {
+        "assessment_type": "content",
+        "description": "Shows a legitimate established seller remaining low risk.",
+        "expected": "low",
+        "name": "Ordinary local listing",
+        "scenario_id": "ordinary-listing"
+      },
+      {
+        "assessment_type": "content",
+        "description": "Combines a payment request, off-platform move, repetition, and reports.",
+        "expected": "high",
+        "name": "Gift-card solicitation",
+        "scenario_id": "gift-card-scam"
+      },
+      {
+        "assessment_type": "coordinated_abuse",
+        "description": "Corroborates similarity, velocity, targeting, and shared infrastructure.",
+        "expected": "critical",
+        "name": "Coordinated listing burst",
+        "scenario_id": "coordinated-burst"
+      },
+      {
+        "assessment_type": "profile",
+        "description": "Demonstrates that one weak signal stays below human-review threshold.",
+        "expected": "low",
+        "name": "Sparse new profile",
+        "scenario_id": "sparse-new-profile"
+      }
+    ]
+  }
+}

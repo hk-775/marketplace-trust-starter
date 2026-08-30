@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Interactive Marketplace Trust Starter architecture: deterministic assessment flows, SQLite state, policy controls, human review, and audit."
+    >
+    <title>Interactive Architecture — Marketplace Trust Starter</title>
+    <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="assets/architecture.js" defer></script>
+  </head>
+  <body class="architecture-body">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/mark.svg" alt="">
+          <span>Marketplace <span>Trust Starter</span></span>
+        </a>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html#principles">Principles</a>
+          <a href="#interactive-flow" aria-current="page">Interactive flow</a>
+          <a href="#topology">Topology</a>
+          <a
+            class="button primary small local-only-link"
+            href="dashboard.html"
+            data-static-href="index.html#quickstart"
+            data-static-label="Run locally"
+          >Open dashboard</a>
+        </div>
+        <button
+          class="mobile-menu-button"
+          id="mobileMenu"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navLinks"
+          aria-label="Toggle navigation"
+        >☰</button>
+      </div>
+    </nav>
+
+    <header class="architecture-hero">
+      <div class="container">
+        <p class="eyebrow">Interactive system map</p>
+        <h1>A small architecture with explicit decision boundaries.</h1>
+        <p>
+          Choose a flow and step through validation, deterministic evidence, durable state,
+          review routing, and audit. The browser animation mirrors the local service—there are
+          no hidden remote models or credentials behind it.
+        </p>
+      </div>
+    </header>
+
+    <main class="architecture-main" id="interactive-flow">
+      <div class="container">
+        <div class="architecture-switcher" id="architectureTabs" role="tablist"></div>
+
+        <section class="architecture-workbench" aria-labelledby="flowTitle">
+          <div class="workbench-head">
+            <div>
+              <h2 id="flowTitle">Profile assessment</h2>
+              <p id="flowSummary">Validated behavior enters the deterministic signal engine.</p>
+            </div>
+            <div class="play-controls" aria-label="Architecture animation controls">
+              <button id="flowPrevious" type="button" aria-label="Previous step">←</button>
+              <button class="primary" id="flowPlay" type="button" aria-label="Play scenario">▶</button>
+              <button id="flowNext" type="button" aria-label="Next step">→</button>
+            </div>
+          </div>
+          <div class="flow-canvas">
+            <div class="flow-track" id="flowTrack"></div>
+          </div>
+          <div class="step-detail">
+            <div>
+              <p class="eyebrow" id="stepLabel">Step 1</p>
+              <h3 id="stepTitle">Validated API request</h3>
+              <p id="stepDescription"></p>
+            </div>
+            <div class="detail-meta">
+              <div class="detail-meta-item">
+                <span>Boundary</span>
+                <strong id="stepBoundary">API</strong>
+              </div>
+              <div class="detail-meta-item">
+                <span>Output</span>
+                <strong id="stepOutput">Validated payload</strong>
+              </div>
+              <div class="detail-meta-item">
+                <span>State</span>
+                <strong id="stepState">Ephemeral</strong>
+              </div>
+              <div class="detail-meta-item">
+                <span>Network</span>
+                <strong>Local only</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="topology-section" id="topology">
+          <div class="section-heading">
+            <p class="eyebrow">Runtime topology</p>
+            <h2>One process, clear modules, replaceable edges.</h2>
+            <p>
+              The starter is intentionally compact. Its service, engine, store, and web surfaces
+              can be understood independently before any production integration is attempted.
+            </p>
+          </div>
+          <div class="topology-grid">
+            <article class="topology-column">
+              <h3>Web and API boundary</h3>
+              <ul>
+                <li>Responsive landing, dashboard, and architecture pages</li>
+                <li>FastAPI validation and OpenAPI documentation</li>
+                <li>Profile, content, coordination, policy, review, audit, and reset routes</li>
+                <li>Security headers and same-origin browser calls</li>
+              </ul>
+            </article>
+            <article class="topology-column">
+              <h3>Application service</h3>
+              <ul>
+                <li>Loads a versioned policy snapshot</li>
+                <li>Generates assessment and case identifiers</li>
+                <li>Separates assessment from review state</li>
+                <li>Routes only high and critical scores to people</li>
+              </ul>
+            </article>
+            <article class="topology-column">
+              <h3>Deterministic engine</h3>
+              <ul>
+                <li>Named positive and counter-signals</li>
+                <li>Bounded point contributions and multipliers</li>
+                <li>Precision-sensitive compound conditions</li>
+                <li>No protected attributes, images, models, or network calls</li>
+              </ul>
+            </article>
+            <article class="topology-column">
+              <h3>Durable local state</h3>
+              <ul>
+                <li>SQLite assessments and evidence snapshots</li>
+                <li>Enforced human-review transitions</li>
+                <li>Editable and locked policy records</li>
+                <li>SHA-256 linked audit events and deterministic reset</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="architecture-truths" aria-label="Architecture truths">
+          <article class="truth-card">
+            <h3>Scores are routing metadata</h3>
+            <p>A high score creates review priority; it does not establish intent or authorize a ban.</p>
+          </article>
+          <article class="truth-card">
+            <h3>Evidence is snapshotted</h3>
+            <p>Later policy edits do not silently rewrite the explanation attached to an existing case.</p>
+          </article>
+          <article class="truth-card">
+            <h3>The demo is not a production claim</h3>
+            <p>Authentication, privacy review, appeal handling, calibrated evaluation, and integrations remain deployment work.</p>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>Marketplace Trust Starter · transparent by construction</span>
+        <div class="footer-links">
+          <a href="index.html">Product overview</a>
+          <a class="local-only-link" href="api/docs" data-static-href="index.html#quickstart" data-static-label="API docs">API docs</a>
+          <a href="#interactive-flow">Replay flows</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
