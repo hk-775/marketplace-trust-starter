@@ -261,6 +261,20 @@ def verify_browser(base_url: str) -> dict[str, object]:
             == "static",
             "landing page is not in static publication mode",
         )
+        require(
+            browser.evaluate(
+                "getComputedStyle(document.querySelector('.hero-console')).transform"
+            )
+            == "none",
+            "landing assessment panel is tilted",
+        )
+        require(
+            browser.evaluate(
+                "getComputedStyle(document.querySelector('.console-caption')).transform"
+            )
+            == "none",
+            "landing assessment caption is tilted",
+        )
 
         browser.navigate(urllib.parse.urljoin(base_url, "architecture.html"))
         require(

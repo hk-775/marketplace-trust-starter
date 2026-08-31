@@ -354,7 +354,6 @@ code,
   color: #fff;
   padding: 18px;
   box-shadow: var(--shadow-md);
-  transform: rotate(1.2deg);
 }
 
 .hero-console::before {
@@ -511,7 +510,6 @@ code,
   padding: 12px 14px;
   box-shadow: var(--shadow-sm);
   font-size: 11px;
-  transform: rotate(-1.2deg);
 }
 
 .stat-strip {
