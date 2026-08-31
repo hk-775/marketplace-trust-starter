@@ -2,6 +2,10 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
+    tags:
+      - "v*"
   pull_request:
   workflow_dispatch:
 
@@ -14,52 +18,144 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version:
+          - "3.11"
+          - "3.12"
+          - "3.13"
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           persist-credentials: false
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install package and development tools
-        run: python -m pip install --disable-pip-version-check -e ".[dev]"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: false
+          version: "0.10.7"
+      - name: Install locked development environment
+        run: uv sync --locked --python "${{ matrix.python-version }}"
       - name: Lint
-        run: ruff check src tests scripts
-      - name: Test
-        run: pytest
-      - name: Verify static site mirror
-        run: python scripts/build_site.py --check
+        run: make lint
+      - name: Test with branch coverage
+        run: make coverage
+      - name: Verify static mirror
+        run: make site-check
 
   smoke:
-    runs-on: ubuntu-latest
+    name: Seeded service smoke test
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           persist-credentials: false
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: "3.12"
-      - name: Install package
-        run: python -m pip install --disable-pip-version-check .
-      - name: Start seeded service on port 8101
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: false
+          version: "0.10.7"
+      - name: Install locked development environment
+        run: uv sync --locked --python "3.12"
+      - name: Start local service
         env:
           MTS_DATABASE_PATH: ${{ runner.temp }}/smoke.db
         run: |
-          marketplace-trust-starter --host 127.0.0.1 --port 8101 >"${RUNNER_TEMP}/server.log" 2>&1 &
-          echo $! >"${RUNNER_TEMP}/server.pid"
-      - name: Run live HTTP smoke test
-        run: python scripts/smoke_test.py --base-url http://127.0.0.1:8101
+          uv run --locked marketplace-trust-starter \
+            --host 127.0.0.1 \
+            --port 8101 \
+            >"${RUNNER_TEMP}/server.log" 2>&1 &
+          echo "$!" >"${RUNNER_TEMP}/server.pid"
+      - name: Exercise API and review workflow
+        run: uv run --locked python scripts/smoke_test.py --base-url http://127.0.0.1:8101
       - name: Print server log on failure
         if: failure()
         run: cat "${RUNNER_TEMP}/server.log"
+
+  security:
+    name: Source and history safety
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out complete history
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: false
+          version: "0.10.7"
+      - name: Install locked development environment
+        run: uv sync --locked --python "3.12"
+      - name: Run repository scans
+        run: make scan
+      - name: Scan reachable Git history
+        run: make history-scan
+      - name: Check committed whitespace
+        run: git diff-tree --check --root --no-commit-id HEAD --
+
+  package:
+    name: Package dry run
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: false
+          version: "0.10.7"
+      - name: Install locked development environment
+        run: uv sync --locked --python "3.12"
+      - name: Build and inspect temporary archives
+        run: make package-check
+
+  browser:
+    name: Public site in Chrome
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: false
+          version: "0.10.7"
+      - name: Install locked development environment
+        run: uv sync --locked --python "3.12"
+      - name: Exercise exact Pages routes and interactions
+        run: make browser-check

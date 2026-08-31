@@ -1,0 +1,175 @@
+<mxfile host="app.diagrams.net" modified="2026-08-31T00:00:00.000Z" agent="Codex" version="29.7.9" type="device">
+  <diagram id="marketplace-trust-aws-target" name="Target AWS services reference">
+    <mxGraphModel dx="1920" dy="1120" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1120" math="0" shadow="0" adaptiveColors="auto" background="#FFFFFF">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="Marketplace Trust Starter — Target AWS Services Reference Architecture" style="text;html=1;align=center;verticalAlign=middle;fontSize=25;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="210" y="18" width="1500" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="PLANNING MATERIAL ONLY · not deployed · no AWS IaC in version 0.1.0 · final marketplace action remains outside the service" style="text;html=1;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#B42318;" vertex="1" parent="1">
+          <mxGeometry x="210" y="62" width="1500" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="human" value="&lt;b&gt;Human operators and reviewers&lt;/b&gt;&lt;br&gt;policy owners · case reviewers · support · incident responders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF7EA;strokeColor=#3F8624;strokeWidth=2;fontColor=#232F3E;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="20" y="180" width="180" height="105" as="geometry"/>
+        </mxCell>
+        <mxCell id="client" value="&lt;b&gt;Host platform callers&lt;/b&gt;&lt;br&gt;scoped machine identity · bounded assessment requests · correlation IDs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F4F8;strokeColor=#147EBA;strokeWidth=2;fontColor=#232F3E;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="20" y="340" width="180" height="105" as="geometry"/>
+        </mxCell>
+        <mxCell id="github" value="&lt;b&gt;GitHub Actions&lt;/b&gt;&lt;br&gt;reviewed build · tests · scans · manual environment promotion" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=2;fontColor=#232F3E;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="20" y="795" width="180" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="aws" value="Target AWS account / Region" style="swimlane;startSize=38;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontColor=#232F3E;fontStyle=1;fontSize=16;html=1;" vertex="1" parent="1">
+          <mxGeometry x="225" y="105" width="1455" height="860" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge" value="Edge, identity, and authenticated ingress" style="swimlane;startSize=30;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;fillColor=#F3F4F6;strokeColor=#879196;fontColor=#232F3E;fontStyle=1;fontSize=14;html=1;" vertex="1" parent="aws">
+          <mxGeometry x="20" y="55" width="1415" height="205" as="geometry"/>
+        </mxCell>
+        <mxCell id="waf" value="AWS WAF&lt;br&gt;managed + rate rules" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.waf;" vertex="1" parent="edge">
+          <mxGeometry x="35" y="52" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="cloudfront" value="Amazon CloudFront&lt;br&gt;static UI delivery" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" vertex="1" parent="edge">
+          <mxGeometry x="165" y="52" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="static_s3" value="Amazon S3&lt;br&gt;private static origin" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.s3;fillColor=#E05243;gradientColor=none;fontColor=#232F3E;fontSize=10;" vertex="1" parent="edge">
+          <mxGeometry x="295" y="46" width="72" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="cognito" value="Amazon Cognito&lt;br&gt;PKCE + scoped M2M" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cognito;" vertex="1" parent="edge">
+          <mxGeometry x="435" y="52" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="api_gateway" value="Amazon API Gateway&lt;br&gt;HTTP API + JWT authorizer" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="edge">
+          <mxGeometry x="575" y="52" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_note" value="&lt;b&gt;Boundary requirements&lt;/b&gt;&lt;br&gt;Authorization code + PKCE for people · separate confidential client for machine calls · bounded schemas and request sizes · tenant and role claims verified in application code · WAF never substitutes for authorization." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#879196;fontColor=#545B64;fontSize=11;" vertex="1" parent="edge">
+          <mxGeometry x="720" y="45" width="650" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="service_plane" value="Private multi-AZ service plane" style="swimlane;startSize=30;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;fillColor=#E8F4F8;strokeColor=#147EBA;fontColor=#232F3E;fontStyle=1;fontSize=14;html=1;" vertex="1" parent="aws">
+          <mxGeometry x="20" y="290" width="840" height="400" as="geometry"/>
+        </mxCell>
+        <mxCell id="alb" value="Internal Application&lt;br&gt;Load Balancer" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.application_load_balancer;" vertex="1" parent="service_plane">
+          <mxGeometry x="45" y="58" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="fargate_a" value="AWS Fargate · AZ A&lt;br&gt;FastAPI + deterministic engine" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#ED7100;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="service_plane">
+          <mxGeometry x="210" y="58" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="fargate_b" value="AWS Fargate · AZ B&lt;br&gt;FastAPI + deterministic engine" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#ED7100;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="service_plane">
+          <mxGeometry x="380" y="58" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="exporter" value="Scheduled Fargate task&lt;br&gt;audit export + reconciliation" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#ED7100;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="service_plane">
+          <mxGeometry x="550" y="58" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="secrets" value="AWS Secrets Manager&lt;br&gt;runtime credentials only" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.secrets_manager;" vertex="1" parent="service_plane">
+          <mxGeometry x="710" y="58" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="core" value="&lt;b&gt;Preserved application invariants&lt;/b&gt;&lt;br&gt;prohibited-field guard · policy versioning · deterministic evidence · high/critical review routing · named reviewer · explicit outcome · no irreversible automated enforcement" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#147EBA;strokeWidth=2;fontColor=#232F3E;fontSize=12;" vertex="1" parent="service_plane">
+          <mxGeometry x="70" y="205" width="700" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="service_note" value="Private subnets · no public task IPs · least-privilege task roles · multi-AZ placement · reset and seed routes disabled outside explicit demo mode · host platform adapter remains bounded and review-gated" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3F8FC;strokeColor=#6C8EBF;fontColor=#545B64;fontSize=10;" vertex="1" parent="service_plane">
+          <mxGeometry x="70" y="330" width="700" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="data_plane" value="Transactional state and separately retained evidence" style="swimlane;startSize=30;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;fillColor=#EAF7EA;strokeColor=#3F8624;fontColor=#232F3E;fontStyle=1;fontSize=14;html=1;" vertex="1" parent="aws">
+          <mxGeometry x="890" y="290" width="545" height="400" as="geometry"/>
+        </mxCell>
+        <mxCell id="aurora" value="Amazon Aurora PostgreSQL&lt;br&gt;assessments · cases · policies · audit rows" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#C925D1;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="data_plane">
+          <mxGeometry x="45" y="60" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="evidence_s3" value="Amazon S3 Object Lock&lt;br&gt;versioned audit exports" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.s3;fillColor=#E05243;gradientColor=none;fontColor=#232F3E;fontSize=10;" vertex="1" parent="data_plane">
+          <mxGeometry x="225" y="52" width="72" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="kms" value="AWS KMS&lt;br&gt;encryption + signing key policy" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.key_management_service;" vertex="1" parent="data_plane">
+          <mxGeometry x="405" y="60" width="72" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="data_note" value="&lt;b&gt;Required design work&lt;/b&gt;&lt;br&gt;• persistence adapter and forward/rollback migrations&lt;br&gt;• tenant partitioning and row-level authorization&lt;br&gt;• encrypted backups and tested point-in-time restore&lt;br&gt;• signed export manifests and independent reconciliation&lt;br&gt;• retention, deletion, correction, export, and legal-hold workflows" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3F8624;fontColor=#545B64;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="data_plane">
+          <mxGeometry x="35" y="205" width="475" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="supply" value="Reviewed container supply chain" style="swimlane;startSize=28;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;fillColor=#F3F4F6;strokeColor=#879196;fontColor=#232F3E;fontStyle=1;fontSize=13;html=1;" vertex="1" parent="aws">
+          <mxGeometry x="20" y="720" width="650" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="oidc" value="Short-lived AWS OIDC role" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#879196;fontColor=#232F3E;fontSize=10;" vertex="1" parent="supply">
+          <mxGeometry x="35" y="42" width="150" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="ecr" value="Amazon ECR&lt;br&gt;scanned immutable digest" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#ED7100;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=9;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecr;" vertex="1" parent="supply">
+          <mxGeometry x="230" y="35" width="58" height="58" as="geometry"/>
+        </mxCell>
+        <mxCell id="supply_note" value="Pinned dependencies and actions · package tests · dependency and image scans · reviewed deployment change · protected environment · rollback by prior image digest" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#879196;fontColor=#545B64;fontSize=10;" vertex="1" parent="supply">
+          <mxGeometry x="340" y="40" width="280" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="ops" value="Observability and AWS control-plane audit" style="swimlane;startSize=28;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;fillColor=#F4ECFF;strokeColor=#8C4FFF;fontColor=#232F3E;fontStyle=1;fontSize=13;html=1;" vertex="1" parent="aws">
+          <mxGeometry x="700" y="720" width="735" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="cloudwatch" value="Amazon CloudWatch&lt;br&gt;redacted logs · metrics · alarms" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=9;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;" vertex="1" parent="ops">
+          <mxGeometry x="40" y="35" width="58" height="58" as="geometry"/>
+        </mxCell>
+        <mxCell id="cloudtrail" value="AWS CloudTrail&lt;br&gt;AWS API activity" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=#FFFFFF;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=9;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudtrail;" vertex="1" parent="ops">
+          <mxGeometry x="195" y="35" width="58" height="58" as="geometry"/>
+        </mxCell>
+        <mxCell id="ops_note" value="Service health · latency and errors · authorization denials · queue age · review outcomes · audit export reconciliation · backup restore · policy change and incident alerts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8C4FFF;fontColor=#545B64;fontSize=10;" vertex="1" parent="ops">
+          <mxGeometry x="315" y="40" width="385" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="platform" value="Host marketplace authority" style="swimlane;startSize=42;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;fillColor=#FFFFFF;strokeColor=#4F627D;strokeWidth=2;dashed=1;fontColor=#10203D;fontStyle=1;fontSize=13;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1710" y="260" width="190" height="455" as="geometry"/>
+        </mxCell>
+        <mxCell id="reports" value="Reporting provenance and subject context" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9AA6B2;fontColor=#334E68;fontSize=10;" vertex="1" parent="platform">
+          <mxGeometry x="18" y="70" width="155" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="case_system" value="Case management, notice, correction, and appeal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9AA6B2;fontColor=#334E68;fontSize=10;" vertex="1" parent="platform">
+          <mxGeometry x="18" y="165" width="155" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="enforcement" value="Accountable final enforcement authority" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE8E6;strokeColor=#B42318;fontColor=#B42318;fontSize=10;fontStyle=1;" vertex="1" parent="platform">
+          <mxGeometry x="18" y="275" width="155" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="platform_note" value="No direct automatic ban, suspension, delisting, fund hold, or irreversible action." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontColor=#7A5C00;fontSize=9;" vertex="1" parent="platform">
+          <mxGeometry x="18" y="375" width="155" height="58" as="geometry"/>
+        </mxCell>
+        <mxCell id="reference_note" value="TARGET / NOT DEPLOYED — this repository provisions none of these AWS resources. A production adaptation requires reviewed IaC, authenticated identity, tenant authorization, privacy and legal design, representative evaluation, migrations, recovery testing, operational ownership, and independent security review." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;strokeWidth=2;fontColor=#7A5C00;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1">
+          <mxGeometry x="300" y="1000" width="1320" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_human_waf" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="human" target="waf" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_waf_cloudfront" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="waf" target="cloudfront" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cloudfront_s3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="cloudfront" target="static_s3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cloudfront_cognito" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="cloudfront" target="cognito" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_client_cognito" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="client" target="cognito" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cognito_api" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="cognito" target="api_gateway" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_api_alb" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="api_gateway" target="alb" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_alb_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="alb" target="fargate_a" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_alb_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="alb" target="fargate_b" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_aurora_s3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3F8624;strokeWidth=2;endArrow=classic;" edge="1" source="aurora" target="evidence_s3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_s3_kms" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3F8624;strokeWidth=2;endArrow=classic;" edge="1" source="evidence_s3" target="kms" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_github_oidc" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="github" target="oidc" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_oidc_ecr" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#147EBA;strokeWidth=2;endArrow=classic;" edge="1" source="oidc" target="ecr" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_client_reports" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#4F627D;strokeWidth=2;dashed=1;endArrow=classic;" edge="1" source="client" target="reports" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_case_enforcement" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#B42318;strokeWidth=2;dashed=1;endArrow=classic;" edge="1" source="case_system" target="enforcement" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

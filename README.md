@@ -9,9 +9,18 @@ and a hash-linked audit trail.
 It runs locally with seeded fictional data. No API keys, model downloads, or
 external service calls are required at runtime.
 
+[Live project site](https://hk-775.github.io/marketplace-trust-starter/) ·
+[Quick start](QUICKSTART.md) ·
+[Architecture](docs/ARCHITECTURE.md) ·
+[Responsible use](docs/ETHICS.md) ·
+[Production readiness](docs/PRODUCTION_READINESS.md)
+
 ## Start the complete demo
 
-Prerequisite: Python 3.11 or newer.
+Prerequisites:
+
+- Python 3.11–3.13
+- [uv](https://docs.astral.sh/uv/) 0.10.7 or newer
 
 ```bash
 ./scripts/demo.sh
@@ -24,9 +33,10 @@ Open:
 - Interactive architecture: `http://127.0.0.1:8101/architecture`
 - OpenAPI documentation: `http://127.0.0.1:8101/api/docs`
 
-The script uses an available Python 3.11+ environment. If FastAPI and Uvicorn
-are absent, it creates `.venv` and installs the declared package dependencies.
-After installation, the product itself makes no external network calls.
+The script synchronizes the committed lockfile and starts the console entry
+point through `uv run --locked`. Dependency installation may contact the
+configured package index. After installation, the product itself makes no
+external network calls.
 
 See [QUICKSTART.md](QUICKSTART.md) for Docker, curl, and demo walkthrough
 options.
@@ -69,6 +79,10 @@ Read [docs/ETHICS.md](docs/ETHICS.md) before adapting the starter.
 
 ## Architecture
 
+### Current local architecture
+
+![Marketplace Trust Starter current logical architecture](site/assets/architecture.png)
+
 ```text
 Browser / API client
         |
@@ -102,6 +116,24 @@ The service is intentionally compact:
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for transaction and extension
 details.
+
+### Target AWS services reference
+
+![Marketplace Trust Starter target AWS services reference architecture](site/assets/aws-services-reference.png)
+
+This is a **target reference, not a deployed topology**. It maps documented
+production gaps to one possible AWS shape using Amazon CloudFront, AWS WAF,
+Amazon S3, Amazon Cognito, Amazon API Gateway, Elastic Load Balancing, Amazon
+ECS on AWS Fargate, Amazon Aurora PostgreSQL, Amazon S3 Object Lock, AWS KMS,
+AWS Secrets Manager, Amazon CloudWatch, AWS CloudTrail, Amazon ECR, and
+short-lived GitHub Actions OIDC credentials.
+
+Version 0.1.0 contains no AWS infrastructure as code and creates no cloud
+resources. The host platform retains final enforcement, notice, correction,
+and appeal authority. Download the
+[editable draw.io source](site/assets/aws-services-reference.drawio) or read
+the exact boundary mapping in
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#target-aws-services-reference-architecture).
 
 ## API summary
 
@@ -154,8 +186,10 @@ See [docs/DEMO.md](docs/DEMO.md) for a meeting-ready walkthrough.
 
 The suite covers scoring, precision-sensitive benign examples, protected-field
 rejection, API state isolation, policy versioning, review transitions, audit
-integrity, and seed reset. Validation also verifies the static mirror and runs
-a live HTTP smoke test on port `8101`.
+integrity, and seed reset. Validation also checks the repository and reachable
+history, verifies the static mirror, builds temporary package archives,
+exercises the exact Pages base in Chrome without external requests, and runs a
+live HTTP smoke test on port `8101`.
 
 ## Docker
 
@@ -169,15 +203,16 @@ Open `http://127.0.0.1:8101`. State is stored in the named
 
 ## Static site
 
-`site/` mirrors the served landing, dashboard, and architecture pages. When the
-API is absent, the dashboard loads a deterministic read-only snapshot. Live
-mutations remain available only when the local service is running.
+`site/` is the explicit static-mode build of the landing, dashboard, and
+architecture pages. The dashboard loads a deterministic read-only snapshot
+and never probes an API route. Live mutations remain available only when the
+local service is running.
 
 Rebuild or verify the mirror:
 
 ```bash
-python scripts/build_site.py
-python scripts/build_site.py --check
+uv run --locked python scripts/build_site.py
+uv run --locked python scripts/build_site.py --check
 ```
 
 ## Project status
@@ -188,7 +223,11 @@ review, jurisdiction-specific policy, calibrated evaluation, monitoring,
 appeals, data-retention controls, abuse-resistant reporting, and integrations
 with the host platform.
 
+The evidence and remaining blockers are tracked in
+[docs/PRODUCTION_READINESS.md](docs/PRODUCTION_READINESS.md). Public release
+contents are listed in
+[docs/PUBLICATION_ARTIFACTS.md](docs/PUBLICATION_ARTIFACTS.md).
+
 ## License
 
 MIT No Attribution (MIT-0). See [LICENSE](LICENSE) and [NOTICE](NOTICE).
-

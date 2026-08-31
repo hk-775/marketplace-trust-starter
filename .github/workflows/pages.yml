@@ -1,0 +1,63 @@
+name: Publish static project site
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy reviewed main branch
+    if: >-
+      github.repository_visibility == 'public' &&
+      github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out reviewed source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+          ref: refs/heads/main
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: false
+          version: "0.10.7"
+      - name: Install locked development environment
+        run: uv sync --locked --python "3.12"
+      - name: Validate publication source
+        run: |
+          uv run --locked python scripts/build_site.py --check
+          uv run --locked python tools/repo_scan.py external_assets publication_mode
+      - name: Exercise exact Pages routes and interactions
+        run: uv run --locked python tools/browser_check.py
+      - name: Prepare site artifact
+        run: |
+          mkdir -p "${RUNNER_TEMP}/marketplace-trust-starter-pages"
+          cp -R site/. "${RUNNER_TEMP}/marketplace-trust-starter-pages/"
+      - name: Configure Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: ${{ runner.temp }}/marketplace-trust-starter-pages
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0

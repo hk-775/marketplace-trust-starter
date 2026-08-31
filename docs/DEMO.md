@@ -11,7 +11,7 @@ From the project root:
 Confirm:
 
 ```bash
-python scripts/smoke_test.py --base-url http://127.0.0.1:8101
+uv run --locked python scripts/smoke_test.py --base-url http://127.0.0.1:8101
 ```
 
 The smoke test restores seed state before it exits.
@@ -106,4 +106,3 @@ Do not describe:
 - SQLite as a production shared datastore;
 - the static dashboard as a live API;
 - the starter as compliant with a particular law or marketplace policy.
-

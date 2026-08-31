@@ -48,7 +48,13 @@ backup/restore procedures.
 
 ## Dependency handling
 
-Dependencies are intentionally small and declared in `pyproject.toml`. Before a
-release, run the project validation and an ecosystem-appropriate dependency
-audit in a network-enabled trusted environment.
+Dependencies are intentionally small, declared in `pyproject.toml`, and
+resolved in `uv.lock`. GitHub Actions are pinned to full commit identifiers.
+Before a release, run `./scripts/validate.sh`, Gitleaks against the worktree and
+reachable history, and ecosystem-appropriate dependency and container audits
+in a trusted, network-enabled environment.
 
+Repository scans reject credential-shaped content, account identifiers in
+ARNs, remote runtime assets, unpinned actions, and missing publication
+artifacts. These checks reduce accidental exposure; they are not a substitute
+for manual review or independent security testing.

@@ -12,6 +12,16 @@ Marketplace Trust Starter optimizes for:
 
 It does not attempt to be a production-scale moderation platform.
 
+## Current logical architecture
+
+![Marketplace Trust Starter current logical architecture](../site/assets/architecture.png)
+
+The diagram above is the implemented version 0.1.0 boundary. Its editable
+source is
+[`site/assets/architecture.drawio`](../site/assets/architecture.drawio).
+The public static build is a separate read-only surface: it uses checked-in
+synthetic JSON and does not call the service API.
+
 ## Components
 
 ### Web and API boundary
@@ -121,8 +131,10 @@ src/marketplace_trust_starter/web/
 ```
 
 `scripts/build_site.py` creates a deterministic API snapshot and mirrors the
-landing, dashboard, architecture, and assets into `site/`. The same dashboard
-uses the live API when available and the read-only snapshot otherwise.
+landing, dashboard, architecture, and assets into `site/`. Served pages carry
+an explicit `service` runtime marker. The build changes that marker to
+`static`; static JavaScript then loads only `assets/demo-data.json` and never
+probes an API route.
 
 ## Extension points
 
@@ -137,10 +149,39 @@ A production adaptation may replace:
 Any replacement should preserve input prohibitions, policy versions, evidence
 snapshots, human-review semantics, and benign-regression tests.
 
+## Target AWS services reference architecture
+
+![Marketplace Trust Starter target AWS services reference architecture](../site/assets/aws-services-reference.png)
+
+This diagram is a **target reference, not a deployed topology**. Version 0.1.0
+contains no AWS infrastructure as code, AWS account identifiers, resource
+names, endpoints, or deployment automation. Publishing the repository or its
+Pages site creates no AWS resources.
+
+The editable source is
+[`site/assets/aws-services-reference.drawio`](../site/assets/aws-services-reference.drawio).
+
+| Documented gap | Target mapping | Boundary |
+| --- | --- | --- |
+| Public web delivery and coarse request filtering | Amazon CloudFront, AWS WAF, and a private Amazon S3 origin | Static assets remain read-only; WAF is not application authorization |
+| Human and workload identity | Amazon Cognito user pools with authorization code plus PKCE for people and a separate scoped confidential client for machine callers | Tenant, reviewer, policy-admin, and support roles still require an application authorization model |
+| Authenticated API boundary | Amazon API Gateway HTTP API with a JWT authorizer | Request schemas, size limits, throttles, and abuse controls must be designed from measured traffic |
+| Private application ingress | API Gateway VPC Link to an internal Application Load Balancer | The load balancer is not public and does not replace identity or tenant checks |
+| Replicated service runtime | The current FastAPI package in Amazon ECS tasks on AWS Fargate across multiple Availability Zones | The image must disable demo reset and seed behavior outside an explicit demo environment |
+| Transactional shared state | Amazon Aurora PostgreSQL-compatible edition | A new persistence adapter, migrations, backup/restore, tenant isolation, and concurrency tests are required |
+| Separately retained audit evidence | A scheduled or event-driven exporter writes versioned records to Amazon S3 Object Lock with AWS KMS encryption | Retention, legal hold, signing, reconciliation, and key policies require accountable security design |
+| Runtime credentials | AWS Secrets Manager references available only to the required task role | Workflow content, evidence, ordinary configuration, and database rows do not belong in the secret store |
+| Operational visibility | Amazon CloudWatch logs, metrics, dashboards, and alarms plus AWS CloudTrail for AWS API activity | Logs and traces require classification, redaction, retention, and access review before real data |
+| Reproducible container delivery | GitHub Actions uses short-lived AWS OIDC credentials to publish a scanned, immutable digest to Amazon ECR and update ECS | The repository includes no such deployment workflow; target delivery requires environment approval and rollback |
+| Marketplace action | A bounded adapter sends a reviewed recommendation to the host platform | The host platform retains enforcement, notice, correction, appeal, and final human authority |
+
+The reference deliberately keeps detection and review separate from final
+enforcement. A high score can create review work; it cannot directly ban,
+suspend, delist, seize funds, or otherwise execute an irreversible action.
+
 ## Scale and concurrency limitations
 
 SQLite is appropriate for this local demo and low-concurrency evaluation. It is
 not the recommended shared store for multiple service replicas. The API also
 lacks job queues, streaming ingestion, distributed locks, tenant isolation,
 and archival policy.
-

@@ -15,17 +15,24 @@ SRC = ROOT / "src"
 PACKAGE_WEB = SRC / "marketplace_trust_starter" / "web"
 SITE = ROOT / "site"
 SNAPSHOT_TIME = "2026-08-30T14:00:00Z"
-MIRRORED_FILES = (
+HTML_FILES = (
     "index.html",
     "dashboard.html",
     "architecture.html",
+)
+ASSET_FILES = (
     "assets/styles.css",
     "assets/landing.js",
     "assets/dashboard.js",
     "assets/architecture.js",
     "assets/demo-data.json",
     "assets/mark.svg",
+    "assets/architecture.drawio",
+    "assets/architecture.png",
+    "assets/aws-services-reference.drawio",
+    "assets/aws-services-reference.png",
 )
+RUNTIME_MARKER = '<meta name="mts-runtime" content="service">'
 
 
 def build_snapshot() -> str:
@@ -70,11 +77,26 @@ def build_snapshot() -> str:
 def write_build(snapshot: str) -> None:
     package_snapshot = PACKAGE_WEB / "assets" / "demo-data.json"
     package_snapshot.write_text(snapshot, encoding="utf-8")
-    for relative_path in MIRRORED_FILES:
+    for relative_path in HTML_FILES:
+        source = PACKAGE_WEB / relative_path
+        destination = SITE / relative_path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(render_static_html(source), encoding="utf-8")
+    for relative_path in ASSET_FILES:
         source = PACKAGE_WEB / relative_path
         destination = SITE / relative_path
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
+
+
+def render_static_html(source: Path) -> str:
+    html = source.read_text(encoding="utf-8")
+    if html.count(RUNTIME_MARKER) != 1:
+        raise ValueError(f"{source} must contain exactly one runtime marker")
+    return html.replace(
+        RUNTIME_MARKER,
+        '<meta name="mts-runtime" content="static">',
+    )
 
 
 def verify_build(snapshot: str) -> list[str]:
@@ -82,7 +104,16 @@ def verify_build(snapshot: str) -> list[str]:
     package_snapshot = PACKAGE_WEB / "assets" / "demo-data.json"
     if not package_snapshot.exists() or package_snapshot.read_text(encoding="utf-8") != snapshot:
         errors.append("package static demo snapshot is stale")
-    for relative_path in MIRRORED_FILES:
+    for relative_path in HTML_FILES:
+        source = PACKAGE_WEB / relative_path
+        destination = SITE / relative_path
+        if not source.is_file():
+            errors.append(f"missing served page: {relative_path}")
+        elif not destination.is_file():
+            errors.append(f"missing static page: {relative_path}")
+        elif destination.read_text(encoding="utf-8") != render_static_html(source):
+            errors.append(f"static page differs: {relative_path}")
+    for relative_path in ASSET_FILES:
         source = PACKAGE_WEB / relative_path
         destination = SITE / relative_path
         if not source.is_file():

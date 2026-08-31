@@ -2,27 +2,16 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-source "${PROJECT_ROOT}/scripts/python_runtime.sh"
-PYTHON_BIN="$(select_mts_python)"
+cd "${PROJECT_ROOT}"
 
-export PYTHONPATH="${PROJECT_ROOT}/src${PYTHONPATH:+:${PYTHONPATH}}"
-
-"${PYTHON_BIN}" -m compileall -q "${PROJECT_ROOT}/src" "${PROJECT_ROOT}/tests"
-"${PYTHON_BIN}" -m pytest
-"${PYTHON_BIN}" "${PROJECT_ROOT}/scripts/build_site.py" --check
-
-if command -v ruff >/dev/null 2>&1; then
-  ruff check "${PROJECT_ROOT}/src" "${PROJECT_ROOT}/tests" "${PROJECT_ROOT}/scripts"
-fi
-
-if rg -n "github\\.com/example|example\\.com/marketplace-trust-starter" \
-  "${PROJECT_ROOT}" \
-  -g '!*.db' \
-  -g '!CHANGELOG.md'
-then
-  echo "Placeholder public URL found." >&2
-  exit 1
-fi
+uv run --locked python -m compileall -q src tests scripts tools
+uv run --locked ruff check src tests scripts tools
+uv run --locked pytest --cov --cov-report=term-missing
+uv run --locked python scripts/build_site.py --check
+uv run --locked python tools/repo_scan.py --pretty
+uv run --locked python tools/history_scan.py --pretty
+uv run --locked python tools/package_check.py
+uv run --locked python tools/browser_check.py
 
 VALIDATION_TMP="$(mktemp -d)"
 SERVER_LOG="${VALIDATION_TMP}/server.log"
@@ -38,13 +27,13 @@ cleanup() {
 trap cleanup EXIT
 
 MTS_DATABASE_PATH="${VALIDATION_TMP}/smoke.db" \
-  "${PYTHON_BIN}" -m marketplace_trust_starter \
+  uv run --locked marketplace-trust-starter \
   --host 127.0.0.1 \
   --port 8101 \
   >"${SERVER_LOG}" 2>&1 &
 SERVER_PID=$!
 
-"${PYTHON_BIN}" "${PROJECT_ROOT}/scripts/smoke_test.py" \
+uv run --locked python "${PROJECT_ROOT}/scripts/smoke_test.py" \
   --base-url "http://127.0.0.1:8101"
 
 echo "Validation complete."

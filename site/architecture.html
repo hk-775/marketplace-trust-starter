@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mts-runtime" content="static">
     <meta
       name="description"
       content="Interactive Marketplace Trust Starter architecture: deterministic assessment flows, SQLite state, policy controls, human review, and audit."
     >
+    <link rel="canonical" href="https://hk-775.github.io/marketplace-trust-starter/architecture.html">
     <title>Interactive Architecture — Marketplace Trust Starter</title>
     <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
     <link rel="stylesheet" href="assets/styles.css">
@@ -23,6 +25,7 @@
           <a href="index.html#principles">Principles</a>
           <a href="#interactive-flow" aria-current="page">Interactive flow</a>
           <a href="#topology">Topology</a>
+          <a href="#artifacts">Diagrams</a>
           <a
             class="button primary small local-only-link"
             href="dashboard.html"
@@ -148,6 +151,77 @@
           </div>
         </section>
 
+        <section class="architecture-artifacts" id="artifacts" aria-labelledby="artifacts-heading">
+          <div class="section-heading">
+            <p class="eyebrow">Downloadable architecture</p>
+            <h2 id="artifacts-heading">Implemented boundary and target deployment stay separate.</h2>
+            <p>
+              The current diagram describes version 0.1.0. The AWS diagram is
+              planning material only: this repository contains no AWS
+              infrastructure as code and creates no cloud resources.
+            </p>
+          </div>
+          <div class="artifact-grid">
+            <article class="artifact-card">
+              <div class="artifact-card-head">
+                <div>
+                  <span class="artifact-status current">Current implementation</span>
+                  <h3>Logical service architecture</h3>
+                </div>
+                <span class="artifact-format">draw.io + PNG</span>
+              </div>
+              <a
+                class="artifact-preview"
+                href="assets/architecture.png"
+                aria-label="Open the current logical architecture PNG"
+              >
+                <img
+                  class="architecture-artifact"
+                  src="assets/architecture.png"
+                  alt="Current Marketplace Trust Starter logical architecture showing the local FastAPI service, deterministic engine, SQLite state, human review, audit, and separate static publication."
+                >
+              </a>
+              <p>
+                Shows the actual local service, evidence and review flow,
+                transaction state, audit boundary, and read-only public site.
+              </p>
+              <div class="artifact-actions">
+                <a class="button small" href="assets/architecture.drawio" download>Download draw.io</a>
+                <a class="button small ghost" href="assets/architecture.png" download>Download PNG</a>
+              </div>
+            </article>
+            <article class="artifact-card">
+              <div class="artifact-card-head">
+                <div>
+                  <span class="artifact-status target">Target · not deployed</span>
+                  <h3>AWS services reference</h3>
+                </div>
+                <span class="artifact-format">draw.io + PNG</span>
+              </div>
+              <a
+                class="artifact-preview"
+                href="assets/aws-services-reference.png"
+                aria-label="Open the target AWS services reference PNG"
+              >
+                <img
+                  class="architecture-artifact"
+                  src="assets/aws-services-reference.png"
+                  alt="Target AWS services reference architecture showing CloudFront, WAF, S3, Cognito, API Gateway, an internal load balancer, Fargate, Aurora PostgreSQL, S3 Object Lock, KMS, Secrets Manager, ECR, CloudWatch, CloudTrail, and host-platform human authority."
+                >
+              </a>
+              <p>
+                Maps documented production gaps to a possible AWS shape while
+                keeping final enforcement, notice, correction, and appeal in
+                the host platform.
+              </p>
+              <div class="artifact-actions">
+                <a class="button small" href="assets/aws-services-reference.drawio" download>Download draw.io</a>
+                <a class="button small ghost" href="assets/aws-services-reference.png" download>Download PNG</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
         <section class="architecture-truths" aria-label="Architecture truths">
           <article class="truth-card">
             <h3>Scores are routing metadata</h3>
@@ -177,4 +251,3 @@
     </footer>
   </body>
 </html>
-

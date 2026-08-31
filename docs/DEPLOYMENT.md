@@ -19,7 +19,7 @@ Configuration:
 | `MTS_HOST` | `127.0.0.1` | Bind address |
 | `MTS_PORT` | `8101` | Service port |
 | `MTS_DATABASE_PATH` | project `data/` database | SQLite path |
-| `MTS_PYTHON` | auto-detected | Explicit Python interpreter for scripts |
+| `MTS_PYTHON` | `3.12` | Python version or interpreter selected by `uv` |
 
 ## Docker Compose
 
@@ -50,20 +50,35 @@ The service remains on container port `8101`.
 Build:
 
 ```bash
-python scripts/build_site.py
+uv run --locked python scripts/build_site.py
 ```
 
 Publish the contents of `site/` with any static host. The landing, dashboard,
-and architecture pages are mirrored from the served assets. The dashboard
-loads `assets/demo-data.json` in read-only mode when the local API is absent.
+and architecture pages are derived from the served assets with an explicit
+`static` runtime marker. The dashboard loads `assets/demo-data.json` in
+read-only mode and does not probe local or private API routes.
 
 Verify before publication:
 
 ```bash
-python scripts/build_site.py --check
+uv run --locked python scripts/build_site.py --check
 ```
 
 No external font, script, image, or API asset is required.
+
+## Target AWS services reference
+
+The downloadable
+[AWS services reference architecture](../site/assets/aws-services-reference.drawio)
+is planning material only. It maps authentication, private ingress, replicated
+compute, managed relational state, immutable audit retention, secrets,
+observability, and image delivery to possible AWS services.
+
+This repository does not include AWS infrastructure as code, an AWS deployment
+workflow, account-specific identifiers, or deployed resources. See
+[Architecture](ARCHITECTURE.md#target-aws-services-reference-architecture) for
+the service-by-service boundaries and
+[Production readiness](PRODUCTION_READINESS.md) for the gaps that remain.
 
 ## Production gaps
 
@@ -104,4 +119,3 @@ The application does not initiate external network calls. A reverse proxy,
 identity provider, monitoring exporter, reputation feed, or model integration
 changes that posture and must be documented, authenticated, bounded, and tested
 separately.
-
