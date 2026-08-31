@@ -166,7 +166,7 @@ def local_site() -> Any:
 
 
 @contextlib.contextmanager
-def chrome_session(base_url: str) -> Any:
+def chrome_session() -> Any:
     with tempfile.TemporaryDirectory(prefix="marketplace-trust-chrome-") as directory:
         profile = Path(directory)
         port = free_port()
@@ -209,7 +209,8 @@ def chrome_session(base_url: str) -> Any:
             if version is None:
                 raise RuntimeError("Chrome DevTools endpoint did not become ready")
             target_request = urllib.request.Request(
-                f"http://127.0.0.1:{port}/json/new?{urllib.parse.quote(base_url)}",
+                f"http://127.0.0.1:{port}/json/new?"
+                f"{urllib.parse.quote('about:blank')}",
                 method="PUT",
             )
             with urllib.request.urlopen(target_request, timeout=5) as response:
@@ -243,7 +244,7 @@ def require(condition: bool, message: str) -> None:
 def verify_browser(base_url: str) -> dict[str, object]:
     origin = urllib.parse.urlsplit(base_url)
     allowed_origin = f"{origin.scheme}://{origin.netloc}"
-    with chrome_session(base_url) as browser:
+    with chrome_session() as browser:
         browser.navigate(base_url)
         require(
             "Trust decisions people can"
