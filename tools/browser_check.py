@@ -167,7 +167,10 @@ def local_site() -> Any:
 
 @contextlib.contextmanager
 def chrome_session() -> Any:
-    with tempfile.TemporaryDirectory(prefix="marketplace-trust-chrome-") as directory:
+    with tempfile.TemporaryDirectory(
+        prefix="marketplace-trust-chrome-",
+        ignore_cleanup_errors=True,
+    ) as directory:
         profile = Path(directory)
         port = free_port()
         command = [
