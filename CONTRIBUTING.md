@@ -4,10 +4,10 @@ Thank you for helping improve Marketplace Trust Starter.
 
 ## Development setup
 
-Use Python 3.11 or newer:
+Use Python 3.11–3.13 and `uv`:
 
 ```bash
-python -m pip install -e ".[dev]"
+uv sync --locked --python 3.12
 ```
 
 Run the product:
@@ -44,7 +44,8 @@ Changes should preserve these boundaries:
 5. Add positive and benign tests.
 6. Update `docs/ETHICS.md`, `docs/API.md`, or
    `docs/ARCHITECTURE.md` when the product contract changes.
-7. Rebuild the static mirror with `python scripts/build_site.py`.
+7. Rebuild the static mirror with
+   `uv run --locked python scripts/build_site.py`.
 
 ## Pull requests
 
@@ -57,4 +58,3 @@ Keep changes focused. Include:
 - screenshots for material UI changes.
 
 By contributing, you agree that your contribution is licensed under MIT-0.
-

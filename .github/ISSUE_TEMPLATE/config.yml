@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/hk-775/marketplace-trust-starter/security/advisories/new
+    about: Use private vulnerability reporting; do not open a public issue.
+  - name: Support and evaluation guidance
+    url: https://github.com/hk-775/marketplace-trust-starter/blob/main/SUPPORT.md
+    about: Review diagnostic commands, supported environments, and support scope.

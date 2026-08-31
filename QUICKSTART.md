@@ -4,7 +4,8 @@
 
 Requirements:
 
-- Python 3.11+
+- Python 3.11–3.13
+- `uv` 0.10.7 or newer
 - a shell capable of running Bash scripts
 
 Start:
@@ -25,10 +26,10 @@ Expected URLs:
 The first start creates `data/marketplace_trust_starter.db` and seeds fictional
 demo state. Stop with `Ctrl-C`; restart with the same command.
 
-If dependencies are not available, the script creates `.venv` and installs the
-package. That one-time installation may contact the configured Python package
-index. The running product requires no credentials and makes no external
-service calls.
+The script synchronizes the committed `uv.lock` and launches the console entry
+point with `uv run --locked`. Dependency installation may contact the
+configured Python package index. The running product requires no credentials
+and makes no external service calls.
 
 ## Five-minute product walkthrough
 
@@ -114,4 +115,3 @@ MTS_PORT=8101 MTS_HOST=0.0.0.0 ./scripts/demo.sh
 
 Binding beyond `127.0.0.1` exposes an unauthenticated demonstration service.
 Do not do so on an untrusted network.
-

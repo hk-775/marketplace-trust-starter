@@ -1,5 +1,8 @@
 "use strict";
 
+const runtimeMode =
+  document.querySelector('meta[name="mts-runtime"]')?.content || "service";
+
 const state = {
   metrics: null,
   assessments: [],
@@ -11,7 +14,7 @@ const state = {
   caseFilter: "active",
   policyFilter: "all",
   currentView: "overview",
-  staticMode: false,
+  staticMode: runtimeMode === "static",
 };
 
 const viewTitles = {
@@ -149,6 +152,36 @@ function setView(view) {
 }
 
 async function loadAll({ silent = false } = {}) {
+  if (state.staticMode) {
+    try {
+      const response = await fetch("assets/demo-data.json", { cache: "no-store" });
+      if (!response.ok) throw new Error("static snapshot unavailable");
+      const snapshot = await response.json();
+      state.metrics = snapshot.metrics;
+      state.assessments = snapshot.assessments.items;
+      state.cases = snapshot.cases.items;
+      state.policies = snapshot.policies;
+      state.insights = snapshot.insights;
+      state.audit = snapshot.audit;
+      state.scenarios = snapshot.scenarios.items;
+      document.querySelector(".environment-pill").textContent = "Static preview";
+      document.querySelector(".local-mode").textContent =
+        "Static seeded preview · run locally to mutate";
+      document.querySelectorAll('a[href="api/docs"]').forEach((link) => {
+        link.href = "index.html#quickstart";
+        link.textContent = "Run the local API";
+      });
+      renderAll();
+      return;
+    } catch (error) {
+      if (!silent) showToast(error.message, "error");
+      document.querySelectorAll(".loading-state").forEach((element) => {
+        element.className = "error-state";
+        element.textContent = `Unable to load static snapshot: ${error.message}`;
+      });
+      return;
+    }
+  }
   try {
     const [metrics, assessments, cases, policies, insights, audit, scenarios] =
       await Promise.all([
@@ -169,35 +202,6 @@ async function loadAll({ silent = false } = {}) {
     state.scenarios = scenarios.items;
     renderAll();
   } catch (error) {
-    if (!state.staticMode) {
-      try {
-        const response = await fetch("assets/demo-data.json", { cache: "no-store" });
-        if (!response.ok) throw error;
-        const snapshot = await response.json();
-        state.metrics = snapshot.metrics;
-        state.assessments = snapshot.assessments.items;
-        state.cases = snapshot.cases.items;
-        state.policies = snapshot.policies;
-        state.insights = snapshot.insights;
-        state.audit = snapshot.audit;
-        state.scenarios = snapshot.scenarios.items;
-        state.staticMode = true;
-        document.querySelector(".environment-pill").textContent = "Static preview";
-        document.querySelector(".local-mode").textContent =
-          "Static seeded preview · run locally to mutate";
-        document.querySelectorAll('a[href="api/docs"]').forEach((link) => {
-          link.href = "index.html#quickstart";
-          link.textContent = "Run the local API";
-        });
-        renderAll();
-        if (!silent) {
-          showToast("Static seeded preview loaded. Run ./scripts/demo.sh for live controls.");
-        }
-        return;
-      } catch {
-        // Fall through to the normal API error treatment.
-      }
-    }
     if (!silent) showToast(error.message, "error");
     document.querySelectorAll(".loading-state").forEach((element) => {
       element.className = "error-state";

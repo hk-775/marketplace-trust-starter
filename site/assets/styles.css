@@ -2396,6 +2396,103 @@ dialog::backdrop {
   font-size: 10px;
 }
 
+.architecture-artifacts {
+  margin-top: 58px;
+  scroll-margin-top: 96px;
+}
+
+.artifact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.artifact-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 18px;
+}
+
+.artifact-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.artifact-card h3,
+.artifact-card p {
+  margin: 0;
+}
+
+.artifact-card h3 {
+  margin-top: 8px;
+  font-size: 16px;
+  letter-spacing: -0.025em;
+}
+
+.artifact-card p {
+  margin-top: 15px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.artifact-status,
+.artifact-format {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.artifact-status.current {
+  background: var(--teal-soft);
+  color: var(--teal-dark);
+}
+
+.artifact-status.target {
+  background: var(--amber-soft);
+  color: #76500e;
+}
+
+.artifact-format {
+  flex: 0 0 auto;
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.artifact-preview {
+  display: block;
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: #fff;
+}
+
+.architecture-artifact {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+
+.artifact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
 .architecture-truths {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2462,6 +2559,10 @@ dialog::backdrop {
 
   .topology-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .artifact-grid {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -1,5 +1,8 @@
 "use strict";
 
+const runtimeMode =
+  document.querySelector('meta[name="mts-runtime"]')?.content || "service";
+
 const feedItems = [
   {
     score: 0,
@@ -142,6 +145,13 @@ function setupCounters() {
 }
 
 async function detectLocalApp() {
+  if (runtimeMode === "static") {
+    document.querySelectorAll(".local-only-link").forEach((link) => {
+      if (link.dataset.staticHref) link.setAttribute("href", link.dataset.staticHref);
+      if (link.dataset.staticLabel) link.textContent = link.dataset.staticLabel;
+    });
+    return;
+  }
   try {
     const response = await fetch("api/v1/health", {
       headers: { Accept: "application/json" },

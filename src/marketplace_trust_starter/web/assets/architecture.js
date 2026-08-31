@@ -1,5 +1,8 @@
 "use strict";
 
+const runtimeMode =
+  document.querySelector('meta[name="mts-runtime"]')?.content || "service";
+
 const flows = [
   {
     id: "profile",
@@ -409,6 +412,13 @@ function setupNavigation() {
 }
 
 async function detectLocalApp() {
+  if (runtimeMode === "static") {
+    document.querySelectorAll(".local-only-link").forEach((link) => {
+      link.href = link.dataset.staticHref;
+      link.textContent = link.dataset.staticLabel;
+    });
+    return;
+  }
   try {
     const response = await fetch("api/v1/health", { cache: "no-store" });
     if (!response.ok) throw new Error("static");
